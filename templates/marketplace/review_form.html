@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Review supplier" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+        <a href="{% url 'order_list' %}" class="transition hover:text-gold-600">{% translate "Purchase orders" %}</a>
+        <span aria-hidden="true">/</span>
+        <a href="{% url 'order_detail' order.pk %}" class="transition hover:text-gold-600">{{ order.order_number }}</a>
+        <span aria-hidden="true">/</span>
+        <span>{% translate "Supplier review" %}</span>
+    </nav>
+
+    <div class="grid gap-7 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside class="space-y-5">
+            <article class="relative overflow-hidden rounded-3xl bg-university-800 p-6 text-white shadow-academic dark:border dark:border-gold-500/20 dark:bg-university-900">
+                <div class="absolute -end-9 -top-9 h-32 w-32 rounded-full border-[20px] border-gold-400/10" aria-hidden="true"></div>
+                <div class="relative">
+                    <p class="text-xs font-black uppercase tracking-[.15em] text-gold-300">{% translate "Completed order" %}</p>
+                    <h1 class="mt-3 text-2xl font-black">{% translate "Share your experience" %}</h1>
+                    <p class="mt-3 text-sm leading-7 text-slate-300">{% translate "Your feedback supports transparent procurement and helps suppliers improve their service quality." %}</p>
+                </div>
+            </article>
+
+            <article class="academic-card p-6">
+                <span class="text-xs font-bold text-slate-400">{% translate "Supplier" %}</span>
+                <h2 class="mt-2 text-lg font-black text-university-800 dark:text-white">{{ order.supplier.company.trade_name|default:order.supplier.username }}</h2>
+                <dl class="mt-5 space-y-4 border-t border-university-100 pt-5 text-sm dark:border-white/10">
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-slate-500 dark:text-slate-300">{% translate "Order" %}</dt>
+                        <dd class="text-end font-black text-university-800 dark:text-white">{{ order.order_number }}</dd>
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-slate-500 dark:text-slate-300">{% translate "Request" %}</dt>
+                        <dd class="text-end font-black text-university-800 dark:text-white">{{ order.rfq.title }}</dd>
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-slate-500 dark:text-slate-300">{% translate "Completed at" %}</dt>
+                        <dd class="text-end font-black text-university-800 dark:text-white">{{ order.completed_at|date:"SHORT_DATE_FORMAT"|default:"—" }}</dd>
+                    </div>
+                </dl>
+            </article>
+        </aside>
+
+        <article class="academic-card relative overflow-hidden p-6 sm:p-8">
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-university-700 via-gold-500 to-university-700"></div>
+
+            {% if order.status == "completed" %}
+                <div class="border-b border-university-100 pb-6 dark:border-white/10">
+                    <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Quality evaluation" %}</p>
+                    <h2 class="mt-2 text-2xl font-black text-university-800 dark:text-white">{% translate "Evaluate the supplier's performance" %}</h2>
+                    <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Choose an overall rating and add an optional comment based on this completed order." %}</p>
+                </div>
+
+                <form method="post" class="mt-7 space-y-6">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-200">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <div>
+                            <label for="{{ field.id_for_label }}" class="text-sm font-black text-university-800 dark:text-white">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-rose-600" aria-hidden="true">*</span>{% endif %}
+                            </label>
+                            {% if field.name == "rating" %}
+                                <div class="mt-3 flex gap-1 text-2xl text-gold-500" aria-hidden="true">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                </div>
+                            {% endif %}
+                            {{ field }}
+                            {% if field.help_text %}<p class="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ field.help_text }}</p>{% endif %}
+                            {% if field.errors %}<div class="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{{ field.errors }}</div>{% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="rounded-2xl border border-gold-200 bg-gold-50 p-5 text-sm leading-7 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                        <strong class="block">{% translate "Fair review guidance" %}</strong>
+                        <span class="mt-1 block">{% translate "Focus on quality, delivery commitment, and communication. Do not include private contact or financial information." %}</span>
+                    </div>
+
+                    <div class="flex flex-col-reverse gap-3 border-t border-university-100 pt-6 dark:border-white/10 sm:flex-row sm:justify-end">
+                        <a href="{% url 'order_detail' order.pk %}" class="secondary-button">{% translate "Cancel" %}</a>
+                        <button type="submit" class="primary-button">{% translate "Submit review" %}</button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="grid min-h-[420px] place-items-center text-center">
+                    <div class="max-w-md">
+                        <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-university-50 text-2xl text-university-700 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">⌛</span>
+                        <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "Review is not available yet" %}</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "A supplier review can be submitted only after the project owner confirms that the order is completed." %}</p>
+                        <a href="{% url 'order_detail' order.pk %}" class="secondary-button mt-6">{% translate "Return to order" %}</a>
+                    </div>
+                </div>
+            {% endif %}
+        </article>
+    </div>
+</section>
+{% endblock %}

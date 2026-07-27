@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="absolute -end-10 -top-16 select-none font-serif text-[10rem] font-black leading-none text-university-800/[.035] dark:text-white/[.025]" aria-hidden="true">SU</div>
+        <div class="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Academic operations center" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-ink dark:text-white">
+                    {% blocktranslate with display_name=user.first_name|default:user.username %}Welcome, {{ display_name }}{% endblocktranslate %}
+                </h1>
+                <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-300">
+                    {% if user.is_staff %}
+                        {% translate "Monitor platform activity and manage procurement data from one workspace." %}
+                    {% elif user.is_supplier %}
+                        {% translate "Follow new opportunities and track the progress of your submitted quotes." %}
+                    {% else %}
+                        {% translate "Track your procurement requests and review the quotes received from suppliers." %}
+                    {% endif %}
+                </p>
+            </div>
+            {% if user.is_owner %}
+                <a href="{% url 'rfq_create' %}" class="primary-button shrink-0">
+                    <span aria-hidden="true">+</span>
+                    <span class="ms-2">{% translate "Request a quote" %}</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {% if user.is_staff %}
+            <div class="stat-card"><span>{% translate "Users" %}</span><strong>{{ stats.users }}</strong></div>
+            <div class="stat-card"><span>{% translate "Procurement requests" %}</span><strong>{{ stats.requests }}</strong></div>
+            <div class="stat-card"><span>{% translate "Quotes" %}</span><strong>{{ stats.quotes }}</strong></div>
+            <div class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ stats.orders }}</strong></div>
+        {% elif user.is_supplier %}
+            <div class="stat-card"><span>{% translate "Available requests" %}</span><strong>{{ stats.available }}</strong></div>
+            <div class="stat-card"><span>{% translate "My quotes" %}</span><strong>{{ stats.quotes }}</strong></div>
+            <div class="stat-card"><span>{% translate "Selected quotes" %}</span><strong>{{ stats.selected }}</strong></div>
+            <div class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ stats.orders }}</strong></div>
+        {% else %}
+            <div class="stat-card"><span>{% translate "All requests" %}</span><strong>{{ stats.requests }}</strong></div>
+            <div class="stat-card"><span>{% translate "Open requests" %}</span><strong>{{ stats.open }}</strong></div>
+            <div class="stat-card"><span>{% translate "Quotes received" %}</span><strong>{{ stats.quotes }}</strong></div>
+            <div class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ stats.orders }}</strong></div>
+        {% endif %}
+    </div>
+
+    {% if attention.total %}
+        <section class="mt-6 rounded-3xl border border-gold-200 bg-gold-50 p-5 dark:border-gold-500/20 dark:bg-gold-500/10" aria-labelledby="attention-heading">
+            <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                <div>
+                    <p class="text-xs font-black uppercase tracking-[.14em] text-gold-700 dark:text-gold-200">{% translate "Action center" %}</p>
+                    <h2 id="attention-heading" class="mt-1 text-xl font-black text-university-800 dark:text-white">{% blocktranslate count counter=attention.total %}1 item requires your attention{% plural %}{{ counter }} items require your attention{% endblocktranslate %}</h2>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                        {% if user.is_staff %}
+                            {% blocktranslate with profiles=attention.primary payments=attention.secondary %}Verification reviews: {{ profiles }} · payment reviews: {{ payments }}{% endblocktranslate %}
+                        {% elif user.is_supplier %}
+                            {% blocktranslate with orders=attention.primary profile=attention.secondary %}Orders awaiting confirmation: {{ orders }} · profile verification actions: {{ profile }}{% endblocktranslate %}
+                        {% else %}
+                            {% blocktranslate with deliveries=attention.primary comparisons=attention.secondary %}Deliveries awaiting receipt: {{ deliveries }} · requests ready for quote comparison: {{ comparisons }}{% endblocktranslate %}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    {% if user.is_staff %}
+                        <a href="{% url 'admin:accounts_companyprofile_changelist' %}" class="primary-button">{% translate "Review organizations" %}</a>
+                        <a href="{% url 'order_list' %}" class="secondary-button">{% translate "Review orders" %}</a>
+                    {% elif user.is_supplier %}
+                        <a href="{% url 'order_list' %}" class="primary-button">{% translate "Open pending orders" %}</a>
+                        {% if attention.secondary %}<a href="{% url 'profile' %}" class="secondary-button">{% translate "Complete verification" %}</a>{% endif %}
+                    {% else %}
+                        <a href="{% url 'order_list' %}" class="primary-button">{% translate "Confirm deliveries" %}</a>
+                        <a href="#recent-requests" class="secondary-button">{% translate "Review requests" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <div id="recent-requests" class="academic-card mt-6 scroll-mt-28 overflow-hidden">
+        <div class="flex items-center justify-between gap-4 border-b border-university-100 px-6 py-5 dark:border-white/10">
+            <div>
+                <h2 class="text-xl font-black text-ink dark:text-white">
+                    {% if user.is_staff %}
+                        {% translate "Latest platform activity" %}
+                    {% elif user.is_supplier %}
+                        {% translate "Relevant opportunities" %}
+                    {% else %}
+                        {% translate "Latest requests" %}
+                    {% endif %}
+                </h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "The latest activity recorded in your account" %}</p>
+            </div>
+            <a href="{% url 'rfq_list' %}" class="shrink-0 text-sm font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "View all" %}</a>
+        </div>
+        <div class="divide-y divide-university-100 dark:divide-white/10">
+            {% for rfq in requests %}
+                <a href="{% url 'rfq_detail' rfq.pk %}" class="group grid gap-4 px-6 py-5 transition hover:bg-university-50 dark:hover:bg-white/[.035] sm:grid-cols-[1fr_auto_auto] sm:items-center">
+                    <div>
+                        <span class="text-xs font-black text-gold-600 dark:text-gold-300">{{ rfq.category.display_name }}</span>
+                        <h3 class="mt-1 font-black text-ink transition group-hover:text-university-600 dark:text-white dark:group-hover:text-gold-300">{{ rfq.title }}</h3>
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-300">
+                            {{ rfq.delivery_city }}
+                            <span aria-hidden="true">·</span>
+                            {% blocktranslate with deadline=rfq.deadline|date:"SHORT_DATE_FORMAT" %}Closes {{ deadline }}{% endblocktranslate %}
+                        </p>
+                    </div>
+                    <span class="w-fit rounded-lg bg-university-50 px-3 py-1.5 text-xs font-black text-university-700 dark:bg-white/5 dark:text-slate-200">
+                        {% blocktranslate count quote_count=rfq.quote_count %}{{ quote_count }} quote{% plural %}{{ quote_count }} quotes{% endblocktranslate %}
+                    </span>
+                    <span class="inline-flex items-center gap-2 text-sm font-black text-university-700 dark:text-gold-300">
+                        {% translate "View details" %}
+                        <svg class="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+                    </span>
+                </a>
+            {% empty %}
+                <div class="px-6 py-16 text-center">
+                    <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-university-50 text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-3-3v6m7 6H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2Z"/></svg>
+                    </span>
+                    <p class="mt-4 text-slate-500 dark:text-slate-300">{% translate "No data is available yet." %}</p>
+                    {% if user.is_owner %}
+                        <a href="{% url 'rfq_create' %}" class="mt-4 inline-block font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "Create your first request" %}</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

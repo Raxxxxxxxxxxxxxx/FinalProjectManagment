@@ -1,0 +1,2306 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sham University Procurement Platform 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-27 21:30+0300\n"
+"PO-Revision-Date: 2026-07-27 19:00+0300\n"
+"Last-Translator: Graduation Project Team\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Platform information"
+msgstr "بيانات المنصة"
+
+msgid "Verify selected organization profiles"
+msgstr "توثيق ملفات المنشآت المحددة"
+
+#, python-format
+msgid "%(count)s organization profile(s) verified."
+msgstr "تم توثيق %(count)s من ملفات المنشآت."
+
+#, python-format
+msgid ""
+"%(count)s profile(s) skipped because the registration number or document is "
+"missing."
+msgstr "تم تجاوز %(count)s من الملفات لعدم توفر رقم التسجيل أو الوثيقة."
+
+msgid "Remove verification from selected profiles"
+msgstr "إزالة التوثيق عن الملفات المحددة"
+
+#, python-format
+msgid "%(count)s organization profile(s) marked as unverified."
+msgstr "تم تصنيف %(count)s من ملفات المنشآت كغير موثّقة."
+
+msgid "Organization name"
+msgstr "اسم المنشأة"
+
+msgid "Email address"
+msgstr "البريد الإلكتروني"
+
+msgid "Mobile number"
+msgstr "رقم الجوال"
+
+msgid "Account type"
+msgstr "نوع الحساب"
+
+msgid "Project owner"
+msgstr "صاحب مشروع"
+
+msgid "Supplier"
+msgstr "مورّد"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "An account with this email address already exists."
+msgstr "يوجد حساب مسجّل بهذا البريد الإلكتروني."
+
+msgid "PDF, JPG, or PNG. Maximum file size: 5 MB."
+msgstr "PDF أو JPG أو PNG، وبحجم أقصى 5 ميغابايت."
+
+msgid "The registration document must not exceed 5 MB."
+msgstr "يجب ألا يتجاوز حجم وثيقة التسجيل 5 ميغابايت."
+
+msgid ""
+"The uploaded file content does not match an allowed PDF, JPG, or PNG "
+"document."
+msgstr "لا يتطابق محتوى الملف المرفوع مع صيغة PDF أو JPG أو PNG مسموح بها."
+
+msgid "Platform administration"
+msgstr "إدارة المنصة"
+
+msgid "Role"
+msgstr "الدور"
+
+msgid "Phone number"
+msgstr "رقم الهاتف"
+
+msgid "Email verified"
+msgstr "البريد موثّق"
+
+msgid "Business type"
+msgstr "نوع النشاط"
+
+msgid "City"
+msgstr "المدينة"
+
+msgid "About"
+msgstr "نبذة"
+
+msgid "Commercial registration number"
+msgstr "رقم السجل التجاري"
+
+msgid "Registration document"
+msgstr "وثيقة التسجيل"
+
+msgid "Verified"
+msgstr "موثّق"
+
+msgid "Welcome! Your account has been created successfully."
+msgstr "أهلاً بك! تم إنشاء حسابك بنجاح."
+
+msgid ""
+"Your organization profile was updated and returned to verification review "
+"because official information changed."
+msgstr "تم تحديث ملف منشأتك وإعادته إلى مراجعة التوثيق لتغيّر بيانات رسمية."
+
+msgid "Your organization profile was updated successfully."
+msgstr "تم تحديث ملف منشأتك بنجاح."
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Minimum budget (USD)"
+msgstr "الميزانية الدنيا (USD)"
+
+msgid "Maximum budget (USD)"
+msgstr "الميزانية القصوى (USD)"
+
+msgid "The maximum budget must be greater than the minimum budget."
+msgstr "يجب أن تكون الميزانية القصوى أكبر من الميزانية الدنيا."
+
+msgid "The deadline must be today or a later date."
+msgstr "يجب أن يكون آخر موعد اليوم أو تاريخاً لاحقاً."
+
+msgid "Total quote (USD)"
+msgstr "إجمالي العرض (USD)"
+
+msgid "Reference price (USD)"
+msgstr "السعر الاسترشادي (USD)"
+
+msgid "Progress note"
+msgstr "ملاحظة التقدّم"
+
+msgid "Tracking reference"
+msgstr "مرجع التتبّع"
+
+msgid "A transfer reference is required for bank transfers."
+msgstr "مرجع التحويل مطلوب عند اختيار التحويل المصرفي."
+
+msgid "Decision"
+msgstr "القرار"
+
+msgid "Confirm payment"
+msgstr "تأكيد الدفع"
+
+msgid "Reject payment"
+msgstr "رفض الدفع"
+
+msgid "Administration note"
+msgstr "ملاحظة الإدارة"
+
+msgid "A reason is required when rejecting payment details."
+msgstr "يجب توضيح السبب عند رفض بيانات الدفع."
+
+msgid "Overall rating"
+msgstr "التقييم العام"
+
+#, python-format
+msgid "%(value)s out of 5"
+msgstr "%(value)s من 5"
+
+msgid "Review comment"
+msgstr "تعليق التقييم"
+
+msgid "Piece"
+msgstr "قطعة"
+
+msgid "Project"
+msgstr "مشروع"
+
+msgid "Service"
+msgstr "خدمة"
+
+msgid "Carton"
+msgstr "كرتونة"
+
+msgid "Kilogram"
+msgstr "كيلوغرام"
+
+msgid "Category"
+msgstr "التصنيف"
+
+msgid "Category name in English"
+msgstr "اسم التصنيف بالإنجليزية"
+
+msgid "Categories"
+msgstr "التصنيفات"
+
+msgid "SKU"
+msgstr "رمز الصنف"
+
+msgid "Product or service"
+msgstr "المنتج أو الخدمة"
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "Unit"
+msgstr "الوحدة"
+
+msgid "Minimum order quantity"
+msgstr "الحد الأدنى لكمية الطلب"
+
+msgid "Reference price"
+msgstr "السعر الاسترشادي"
+
+msgid "Products and services"
+msgstr "المنتجات والخدمات"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Open for quotes"
+msgstr "مفتوح للعروض"
+
+msgid "Under evaluation"
+msgstr "قيد المقارنة"
+
+msgid "Quote awarded"
+msgstr "تم اختيار عرض"
+
+msgid "Closed"
+msgstr "مغلق"
+
+msgid "Cancelled"
+msgstr "ملغي"
+
+msgid "Request title"
+msgstr "عنوان الطلب"
+
+msgid "Requirements details"
+msgstr "تفاصيل الاحتياج"
+
+msgid "Delivery city"
+msgstr "مدينة التسليم"
+
+msgid "Quote submission deadline"
+msgstr "آخر موعد لاستقبال العروض"
+
+msgid "Minimum budget"
+msgstr "الميزانية الدنيا"
+
+msgid "Maximum budget"
+msgstr "الميزانية القصوى"
+
+msgid "Request for quotation"
+msgstr "طلب عرض سعر"
+
+msgid "Requests for quotation"
+msgstr "طلبات عروض السعر"
+
+msgid "Item"
+msgstr "البند"
+
+msgid "Quantity"
+msgstr "الكمية"
+
+msgid "Specifications"
+msgstr "المواصفات"
+
+msgid "Pending review"
+msgstr "بانتظار المراجعة"
+
+msgid "Selected"
+msgstr "تم الاختيار"
+
+msgid "Not selected"
+msgstr "غير مختار"
+
+msgid "Withdrawn"
+msgstr "مسحوب"
+
+msgid "Total quote"
+msgstr "إجمالي العرض"
+
+msgid "Delivery time in days"
+msgstr "مدة التسليم بالأيام"
+
+msgid "Quote notes"
+msgstr "ملاحظات العرض"
+
+msgid "Quote"
+msgstr "عرض سعر"
+
+msgid "Quotes"
+msgstr "عروض الأسعار"
+
+msgid "Awaiting supplier confirmation"
+msgstr "بانتظار تأكيد المورّد"
+
+msgid "Confirmed"
+msgstr "مؤكد"
+
+msgid "Preparing"
+msgstr "قيد التجهيز"
+
+msgid "Shipped"
+msgstr "تم الشحن"
+
+msgid "Delivered"
+msgstr "تم التسليم"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Order number"
+msgstr "رقم أمر الشراء"
+
+msgid "Agreed amount"
+msgstr "المبلغ المتفق عليه"
+
+msgid "Currency"
+msgstr "العملة"
+
+msgid "Agreed delivery time in days"
+msgstr "مدة التسليم بالأيام"
+
+msgid "Expected delivery date"
+msgstr "تاريخ التسليم المتوقع"
+
+msgid "Order status"
+msgstr "حالة أمر الشراء"
+
+msgid "Purchase order"
+msgstr "أمر شراء"
+
+msgid "Purchase orders"
+msgstr "أوامر الشراء"
+
+msgid "Purchase order item"
+msgstr "بند أمر شراء"
+
+msgid "Purchase order items"
+msgstr "بنود أمر الشراء"
+
+msgid "Previous status"
+msgstr "الحالة السابقة"
+
+msgid "New status"
+msgstr "الحالة الجديدة"
+
+msgid "Status note"
+msgstr "ملاحظة الحالة"
+
+msgid "Actor role"
+msgstr "دور منفّذ الإجراء"
+
+msgid "Order status event"
+msgstr "حدث حالة أمر الشراء"
+
+msgid "Order status events"
+msgstr "أحداث حالات أوامر الشراء"
+
+msgid "Bank transfer"
+msgstr "تحويل مصرفي"
+
+msgid "Cash on delivery"
+msgstr "الدفع عند الاستلام"
+
+msgid "Pending"
+msgstr "معلّق"
+
+msgid "Payment details submitted"
+msgstr "تم إرسال بيانات الدفع"
+
+msgid "Payment confirmed"
+msgstr "تم تأكيد الدفع"
+
+msgid "Payment rejected"
+msgstr "تم رفض الدفع"
+
+msgid "Refunded"
+msgstr "تم ردّ المبلغ"
+
+msgid "Payment method"
+msgstr "طريقة الدفع"
+
+msgid "Payment amount"
+msgstr "مبلغ الدفع"
+
+msgid "Payment status"
+msgstr "حالة الدفع"
+
+msgid "Transfer reference"
+msgstr "مرجع التحويل"
+
+msgid "Payment note"
+msgstr "ملاحظة الدفع"
+
+msgid "Submission count"
+msgstr "عدد مرات الإرسال"
+
+msgid "Payment"
+msgstr "الدفع"
+
+msgid "Payments"
+msgstr "الدفعات"
+
+msgid "Quote received"
+msgstr "تم استلام عرض"
+
+msgid "Quote selected"
+msgstr "تم اختيار العرض"
+
+msgid "Quote not selected"
+msgstr "غير مختار"
+
+msgid "Order status updated"
+msgstr "تم تحديث حالة أمر الشراء"
+
+msgid "Payment submitted"
+msgstr "تم إرسال بيانات الدفع"
+
+msgid "Review received"
+msgstr "تم استلام تقييم"
+
+msgid "Notification type"
+msgstr "نوع الإشعار"
+
+msgid "Event key"
+msgstr "مفتاح الحدث"
+
+msgid "Notification context"
+msgstr "سياق الإشعار"
+
+msgid "Read"
+msgstr "مقروء"
+
+msgid "Notification"
+msgstr "إشعار"
+
+msgid "Notifications"
+msgstr "الإشعارات"
+
+#, python-format
+msgid "A new quote was received for “%(request)s”."
+msgstr "تم استلام عرض جديد للطلب «%(request)s»."
+
+#, python-format
+msgid "Your quote for “%(request)s” was selected."
+msgstr "تم اختيار عرضك للطلب «%(request)s»."
+
+#, python-format
+msgid "Another quote was selected for “%(request)s”."
+msgstr "تم اختيار عرض آخر للطلب «%(request)s»."
+
+#, python-format
+msgid "Order %(order)s status changed to %(status)s."
+msgstr "تغيّرت حالة أمر الشراء %(order)s إلى %(status)s."
+
+#, python-format
+msgid "Payment details were submitted for order %(order)s."
+msgstr "تم إرسال بيانات الدفع لأمر الشراء %(order)s."
+
+#, python-format
+msgid "Payment was confirmed for order %(order)s."
+msgstr "تم تأكيد الدفع لأمر الشراء %(order)s."
+
+#, python-format
+msgid "Payment details require review for order %(order)s."
+msgstr "تتطلب بيانات الدفع مراجعة لأمر الشراء %(order)s."
+
+#, python-format
+msgid "A new review was received for order %(order)s."
+msgstr "تم استلام تقييم جديد لأمر الشراء %(order)s."
+
+msgid "This request is no longer accepting quotes."
+msgstr "لم يعد هذا الطلب يستقبل عروضاً."
+
+msgid "Your supplier account must be verified before submitting quotes."
+msgstr "يجب توثيق حساب المورّد قبل تقديم العروض."
+
+msgid "You have already submitted a quote for this request."
+msgstr "سبق أن أرسلت عرضاً لهذا الطلب."
+
+msgid "You can edit only your own quotes."
+msgstr "يمكنك تعديل عروضك فقط."
+
+msgid "Your supplier account must be verified before managing quotes."
+msgstr "يجب توثيق حساب المورّد قبل إدارة العروض."
+
+msgid "This quote can no longer be edited."
+msgstr "لم يعد تعديل هذا العرض متاحاً."
+
+msgid "You can withdraw only your own quotes."
+msgstr "يمكنك سحب عروضك فقط."
+
+msgid "This quote can no longer be withdrawn."
+msgstr "لم يعد سحب هذا العرض متاحاً."
+
+msgid "Only the request owner can select the winning quote."
+msgstr "يحق لصاحب الطلب وحده اختيار العرض الفائز."
+
+msgid "A different quote has already been selected for this request."
+msgstr "تم اختيار عرض آخر لهذا الطلب مسبقاً."
+
+msgid "The selected supplier is no longer active and verified."
+msgstr "لم يعد المورّد المحدد نشطاً وموثّقاً."
+
+msgid "This request is no longer accepting a selection."
+msgstr "لم يعد هذا الطلب متاحاً لاختيار عرض."
+
+msgid "This quote is no longer available for selection."
+msgstr "لم يعد هذا العرض متاحاً للاختيار."
+
+msgid "A purchase order already exists for this request."
+msgstr "يوجد أمر شراء لهذا الطلب بالفعل."
+
+msgid "The project owner selected the quote."
+msgstr "اختار صاحب المشروع هذا العرض."
+
+msgid "You cannot perform this status transition."
+msgstr "لا تملك صلاحية تنفيذ هذا الانتقال في الحالة."
+
+msgid "Payment must be confirmed before preparation begins."
+msgstr "يجب تأكيد الدفع قبل بدء التجهيز."
+
+msgid "Only the order owner can submit payment details."
+msgstr "يحق لصاحب أمر الشراء وحده إرسال بيانات الدفع."
+
+msgid "Payment details cannot be submitted at this order stage."
+msgstr "لا يمكن إرسال بيانات الدفع في هذه المرحلة من أمر الشراء."
+
+msgid "This payment has already been confirmed."
+msgstr "تم تأكيد هذه الدفعة مسبقاً."
+
+msgid "Only platform administration can review payments."
+msgstr "يحق لإدارة المنصة وحدها مراجعة الدفعات."
+
+msgid "Unknown payment decision."
+msgstr "قرار الدفع غير معروف."
+
+msgid "Only submitted payments can be reviewed."
+msgstr "لا يمكن مراجعة سوى بيانات الدفع المرسلة."
+
+msgid ""
+"Cash-on-delivery payment can no longer be reviewed after order preparation "
+"has started."
+msgstr "لم يعد من الممكن مراجعة الدفع عند الاستلام بعد بدء تجهيز الطلب."
+
+msgid "Only the order owner can review the supplier."
+msgstr "يحق لصاحب أمر الشراء وحده تقييم المورّد."
+
+msgid "A review can be submitted only after order completion."
+msgstr "لا يمكن إرسال التقييم إلا بعد اكتمال أمر الشراء."
+
+msgid "This order has already been reviewed."
+msgstr "تم تقييم هذا الأمر مسبقاً."
+
+msgid "piece"
+msgstr "قطعة"
+
+msgid "project"
+msgstr "مشروع"
+
+msgid "service"
+msgstr "خدمة"
+
+msgid "carton"
+msgstr "كرتونة"
+
+msgid "kilogram"
+msgstr "كيلوغرام"
+
+msgid "The product or service was added successfully."
+msgstr "تمت إضافة المنتج أو الخدمة بنجاح."
+
+msgid "The product or service was updated successfully."
+msgstr "تم تحديث المنتج أو الخدمة بنجاح."
+
+msgid "The catalog item visibility was updated."
+msgstr "تم تحديث ظهور عنصر الكتالوج."
+
+msgid "Your quote was updated successfully."
+msgstr "تم تحديث عرضك بنجاح."
+
+msgid "Your quote was withdrawn."
+msgstr "تم سحب عرضك."
+
+msgid "Creating requests is available to project owners only."
+msgstr "إنشاء الطلبات متاح لأصحاب المشاريع فقط."
+
+msgid "The request for quotation has been published successfully."
+msgstr "تم نشر طلب عرض السعر بنجاح."
+
+msgid "Submitting quotes is available to suppliers only."
+msgstr "إرسال العروض متاح للمورّدين فقط."
+
+msgid ""
+"Complete your organization profile and wait for verification before "
+"submitting quotes."
+msgstr "أكمل ملف منشأتك وانتظر التوثيق قبل تقديم العروض."
+
+msgid "Your quote has been sent to the project owner."
+msgstr "تم إرسال عرضك إلى صاحب المشروع."
+
+msgid "The quote was selected and a purchase order was created."
+msgstr "تم اختيار العرض وإنشاء أمر شراء."
+
+msgid "This quote has already been selected."
+msgstr "تم اختيار هذا العرض مسبقاً."
+
+msgid "This order action is no longer available."
+msgstr "لم يعد هذا الإجراء متاحاً لأمر الشراء."
+
+msgid "Please review the progress information."
+msgstr "يرجى مراجعة معلومات التقدّم."
+
+msgid "The order status was updated successfully."
+msgstr "تم تحديث حالة أمر الشراء بنجاح."
+
+msgid "Payment details were submitted for review."
+msgstr "تم إرسال بيانات الدفع للمراجعة."
+
+msgid "The payment decision was recorded."
+msgstr "تم تسجيل قرار الدفع."
+
+msgid "Thank you. Your review was submitted."
+msgstr "شكراً لك. تم إرسال تقييمك."
+
+msgid "All notifications were marked as read."
+msgstr "تم تحديد جميع الإشعارات كمقروءة."
+
+msgid "Created at"
+msgstr "تاريخ الإنشاء"
+
+msgid "Access denied"
+msgstr "الوصول غير مسموح"
+
+msgid "You do not have permission to open this page"
+msgstr "لا تملك صلاحية فتح هذه الصفحة"
+
+msgid "Sign in with the appropriate account or return to your dashboard."
+msgstr "سجّل الدخول بالحساب المناسب أو عد إلى لوحة التحكم."
+
+msgid "Return to dashboard"
+msgstr "العودة إلى لوحة التحكم"
+
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+msgid "The requested page could not be found"
+msgstr "تعذّر العثور على الصفحة المطلوبة"
+
+msgid ""
+"The link may be outdated, or the requested record is not available to this "
+"account."
+msgstr "قد يكون الرابط قديماً، أو أن السجل المطلوب غير متاح لهذا الحساب."
+
+msgid "Return to home"
+msgstr "العودة إلى الرئيسية"
+
+msgid "Temporary system error"
+msgstr "خطأ مؤقت في النظام"
+
+msgid "An unexpected error occurred"
+msgstr "حدث خطأ غير متوقع"
+
+msgid "Please try again shortly. Your previously saved data remains unchanged."
+msgstr "يرجى المحاولة بعد قليل. ستبقى بياناتك المحفوظة سابقاً دون تغيير."
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Secure academic workspace"
+msgstr "بيئة أكاديمية آمنة"
+
+msgid "Welcome back"
+msgstr "مرحباً بعودتك"
+
+msgid "Log in to continue managing your procurement activity."
+msgstr "سجّل الدخول لمتابعة وإدارة نشاط التوريد الخاص بك."
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "New to the platform?"
+msgstr "جديد في المنصة؟"
+
+msgid "Create an account"
+msgstr "أنشئ حساباً"
+
+msgid "Organization profile"
+msgstr "الملف التعريفي للمنشأة"
+
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Verified organization"
+msgstr "منشأة موثّقة"
+
+msgid "Verification pending"
+msgstr "بانتظار التوثيق"
+
+msgid "Edit profile"
+msgstr "تعديل الملف"
+
+msgid "Organization information"
+msgstr "بيانات المنشأة"
+
+msgid "Information used to establish trust across procurement workflows."
+msgstr "بيانات تُستخدم لبناء الثقة عبر مسارات عمل التوريد."
+
+msgid "Not provided"
+msgstr "غير متوفر"
+
+msgid "No organization description has been added yet."
+msgstr "لم تُضف نبذة عن المنشأة بعد."
+
+msgid ""
+"This private document is available only to your account and platform "
+"administration."
+msgstr "هذه الوثيقة الخاصة متاحة لحسابك وإدارة المنصة فقط."
+
+msgid "Download document"
+msgstr "تنزيل الوثيقة"
+
+msgid "Document uploaded"
+msgstr "تم رفع الوثيقة"
+
+msgid "No registration document has been uploaded."
+msgstr "لم تُرفع وثيقة تسجيل بعد."
+
+msgid "Upload document"
+msgstr "رفع وثيقة"
+
+msgid "Profile completeness"
+msgstr "اكتمال الملف"
+
+msgid ""
+"Complete your organization details and upload a registration document to "
+"support verification."
+msgstr "أكمل بيانات منشأتك وارفع وثيقة التسجيل لدعم عملية التوثيق."
+
+msgid "Account details"
+msgstr "بيانات الحساب"
+
+msgid "Supplier catalog"
+msgstr "كتالوج المورّدين"
+
+msgid "Manage catalog"
+msgstr "إدارة الكتالوج"
+
+msgid "Edit organization profile"
+msgstr "تعديل ملف المنشأة"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Organization identity"
+msgstr "هوية المنشأة"
+
+msgid ""
+"Keep your organization information accurate so procurement partners can "
+"evaluate your account with confidence."
+msgstr "حافظ على دقة بيانات منشأتك ليتمكن شركاء التوريد من تقييم حسابك بثقة."
+
+msgid "Document privacy"
+msgstr "خصوصية الوثيقة"
+
+msgid ""
+"Registration files are stored privately and can be downloaded only by the "
+"account owner or platform administration."
+msgstr ""
+"تُحفظ ملفات التسجيل بشكل خاص، ولا يمكن تنزيلها إلا من مالك الحساب أو إدارة "
+"المنصة."
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Save profile"
+msgstr "حفظ الملف"
+
+msgid "Create account"
+msgstr "إنشاء حساب"
+
+msgid "Join the university business network"
+msgstr "انضم إلى شبكة الأعمال الجامعية"
+
+msgid "Create a new account"
+msgstr "إنشاء حساب جديد"
+
+msgid "Choose your role and enter your organization's essential information."
+msgstr "اختر دورك وأدخل بيانات منشأتك الأساسية."
+
+msgid "Create account and continue"
+msgstr "إنشاء الحساب والمتابعة"
+
+msgid "Already have an account?"
+msgstr "لديك حساب بالفعل؟"
+
+msgid ""
+"A professional procurement platform connecting project owners with qualified "
+"suppliers"
+msgstr "منصة توريد احترافية تربط أصحاب المشاريع بالمورّدين المؤهلين"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Sham University Procurement Platform"
+msgstr "منصة التوريد – جامعة الشام"
+
+msgid "Skip to main content"
+msgstr "الانتقال إلى المحتوى الرئيسي"
+
+msgid "Sham University Procurement Platform — Home"
+msgstr "منصة التوريد في جامعة الشام — الرئيسية"
+
+msgid "Sham University logo"
+msgstr "شعار جامعة الشام"
+
+msgid "SHAM UNIVERSITY"
+msgstr "جامعة الشام"
+
+msgid "Procurement Platform"
+msgstr "منصة التوريد"
+
+msgid "Graduation Project · Digital Business Solutions"
+msgstr "مشروع تخرج · حلول الأعمال الرقمية"
+
+msgid "Open navigation menu"
+msgstr "فتح قائمة التنقل"
+
+msgid "Main navigation"
+msgstr "التنقل الرئيسي"
+
+msgid "Procurement requests"
+msgstr "طلبات التوريد"
+
+msgid "Request a quote"
+msgstr "طلب عرض سعر"
+
+msgid "Unread notifications"
+msgstr "الإشعارات غير المقروءة"
+
+msgid "Reports"
+msgstr "التقارير"
+
+msgid "My quotes"
+msgstr "عروضي"
+
+msgid "My catalog"
+msgstr "كتالوجي"
+
+msgid "Django administration"
+msgstr "إدارة Django"
+
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+msgid "Get started"
+msgstr "ابدأ الآن"
+
+msgid "Change language"
+msgstr "تغيير اللغة"
+
+msgid "Switch color theme"
+msgstr "تبديل النمط اللوني"
+
+msgid "Mobile navigation"
+msgstr "تنقل الهاتف"
+
+msgid "New request for quotation"
+msgstr "طلب عرض سعر جديد"
+
+msgid "Color theme"
+msgstr "النمط اللوني"
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid ""
+"An academic digital platform that manages the procurement cycle from "
+"identifying needs through delivery and evaluation."
+msgstr ""
+"منصة رقمية أكاديمية تدير دورة التوريد من تحديد الاحتياج حتى التسليم والتقييم."
+
+msgid "Quick links"
+msgstr "روابط سريعة"
+
+msgid "Browse requests"
+msgstr "استعراض الطلبات"
+
+msgid "Student project portal"
+msgstr "بوابة مشروع الطلاب"
+
+msgid "Register as a supplier"
+msgstr "التسجيل كمورّد"
+
+msgid "Academic standards"
+msgstr "المعايير الأكاديمية"
+
+msgid ""
+"Reliable workflows, data protection, accessibility, and a clear audit trail "
+"for every procurement step."
+msgstr ""
+"مسارات عمل موثوقة، وحماية للبيانات، وسهولة وصول، وسجل تدقيق واضح لكل خطوة "
+"توريد."
+
+#, python-format
+msgid "© %(year)s Sham University · Graduation Project"
+msgstr "© %(year)s جامعة الشام · مشروع تخرج"
+
+msgid "Pagination"
+msgstr "التنقل بين الصفحات"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Current page"
+msgstr "الصفحة الحالية"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Academic operations center"
+msgstr "مركز العمليات الأكاديمية"
+
+#, python-format
+msgid "Welcome, %(display_name)s"
+msgstr "أهلاً %(display_name)s"
+
+msgid ""
+"Monitor platform activity and manage procurement data from one workspace."
+msgstr "راقب نشاط المنصة وأدر بيانات التوريد من مساحة عمل واحدة."
+
+msgid ""
+"Follow new opportunities and track the progress of your submitted quotes."
+msgstr "تابع الفرص الجديدة وتقدّم عروض الأسعار التي أرسلتها."
+
+msgid ""
+"Track your procurement requests and review the quotes received from "
+"suppliers."
+msgstr "تابع طلبات التوريد وراجع العروض المستلمة من المورّدين."
+
+msgid "Users"
+msgstr "المستخدمون"
+
+msgid "Available requests"
+msgstr "الطلبات المتاحة"
+
+msgid "Selected quotes"
+msgstr "العروض المختارة"
+
+msgid "All requests"
+msgstr "جميع الطلبات"
+
+msgid "Open requests"
+msgstr "الطلبات المفتوحة"
+
+msgid "Quotes received"
+msgstr "العروض المستلمة"
+
+msgid "Action center"
+msgstr "مركز الإجراءات"
+
+#, python-format
+msgid "1 item requires your attention"
+msgid_plural "%(counter)s items require your attention"
+msgstr[0] "عنصر واحد يتطلب انتباهك"
+msgstr[1] "%(counter)s عناصر تتطلب انتباهك"
+
+#, python-format
+msgid "Verification reviews: %(profiles)s · payment reviews: %(payments)s"
+msgstr "مراجعات التوثيق: %(profiles)s · مراجعات الدفع: %(payments)s"
+
+#, python-format
+msgid ""
+"Orders awaiting confirmation: %(orders)s · profile verification actions: "
+"%(profile)s"
+msgstr "أوامر بانتظار التأكيد: %(orders)s · إجراءات توثيق الملف: %(profile)s"
+
+#, python-format
+msgid ""
+"Deliveries awaiting receipt: %(deliveries)s · requests ready for quote "
+"comparison: %(comparisons)s"
+msgstr ""
+"تسليمات بانتظار الاستلام: %(deliveries)s · طلبات جاهزة لمقارنة العروض: "
+"%(comparisons)s"
+
+msgid "Review organizations"
+msgstr "مراجعة المنشآت"
+
+msgid "Review orders"
+msgstr "مراجعة الأوامر"
+
+msgid "Open pending orders"
+msgstr "فتح الأوامر المعلّقة"
+
+msgid "Complete verification"
+msgstr "إكمال التوثيق"
+
+msgid "Confirm deliveries"
+msgstr "تأكيد عمليات التسليم"
+
+msgid "Review requests"
+msgstr "مراجعة الطلبات"
+
+msgid "Latest platform activity"
+msgstr "أحدث نشاط المنصة"
+
+msgid "Relevant opportunities"
+msgstr "فرص مناسبة"
+
+msgid "Latest requests"
+msgstr "أحدث الطلبات"
+
+msgid "The latest activity recorded in your account"
+msgstr "آخر النشاطات المسجلة في حسابك"
+
+msgid "View all"
+msgstr "عرض الكل"
+
+#, python-format
+msgid "Closes %(deadline)s"
+msgstr "ينتهي في %(deadline)s"
+
+#, python-format
+msgid "%(quote_count)s quote"
+msgid_plural "%(quote_count)s quotes"
+msgstr[0] "عرض واحد"
+msgstr[1] "%(quote_count)s عروض"
+
+msgid "View details"
+msgstr "عرض التفاصيل"
+
+msgid "No data is available yet."
+msgstr "لا توجد بيانات بعد."
+
+msgid "Create your first request"
+msgstr "أنشئ طلبك الأول"
+
+msgid "An academic platform for intelligent procurement"
+msgstr "منصة أكاديمية للتوريد الذكي"
+
+msgid "Your project needs reach"
+msgstr "احتياج مشروعك يصل إلى"
+
+msgid "the right supplier"
+msgstr "المورّد المناسب"
+
+msgid ""
+"Publish your request once, receive competitive quotes, and compare prices "
+"and delivery times transparently in one trusted environment."
+msgstr ""
+"انشر طلبك مرة واحدة، واستقبل عروضاً تنافسية، وقارن الأسعار ومدد التسليم "
+"بشفافية ضمن بيئة موثوقة واحدة."
+
+msgid "Open my dashboard"
+msgstr "فتح لوحة التحكم"
+
+msgid "Manage my quotes"
+msgstr "إدارة عروضي"
+
+msgid "I am a project owner"
+msgstr "أنا صاحب مشروع"
+
+msgid "Join as a supplier"
+msgstr "انضم كمورّد"
+
+msgid "Suppliers"
+msgstr "المورّدون"
+
+msgid "Business sectors"
+msgstr "قطاعات الأعمال"
+
+msgid "Procurement overview"
+msgstr "ملخص التوريد"
+
+msgid "Your project dashboard"
+msgstr "لوحة مشروعك"
+
+msgid "Received quotes"
+msgstr "عروض مستلمة"
+
+msgid "Estimated savings"
+msgstr "التوفير التقديري"
+
+msgid "Procurement"
+msgstr "التوريد"
+
+msgid "No open requests yet"
+msgstr "لا توجد طلبات مفتوحة بعد"
+
+#, python-format
+msgid "1 quote"
+msgid_plural "%(counter)s quotes"
+msgstr[0] "عرض واحد"
+msgstr[1] "%(counter)s عروض"
+
+msgid "Designed according to transparent academic workflows"
+msgstr "مصممة وفق مسارات عمل أكاديمية شفافة"
+
+msgid "How does the platform work?"
+msgstr "كيف تعمل المنصة؟"
+
+msgid "From need to supply in four structured steps"
+msgstr "من الاحتياج إلى التوريد في أربع خطوات منظّمة"
+
+msgid "Publish your need"
+msgstr "انشر احتياجك"
+
+msgid "Add items, quantities, specifications, and the required delivery date."
+msgstr "أضف الأصناف والكميات والمواصفات وموعد التسليم المطلوب."
+
+msgid "Receive quotes"
+msgstr "استقبل العروض"
+
+msgid "Qualified supplier quotes arrive directly in your account."
+msgstr "تصل عروض المورّدين المؤهلين مباشرة إلى حسابك."
+
+msgid "Compare and select"
+msgstr "قارن واختر"
+
+msgid "Compare price, duration, and rating, then select the best quote."
+msgstr "قارن السعر والمدة والتقييم، ثم اختر العرض الأنسب."
+
+msgid "Track and receive"
+msgstr "تابع واستلم"
+
+msgid "Track preparation and delivery, then evaluate your experience."
+msgstr "تابع التجهيز والتسليم، ثم قيّم تجربتك."
+
+msgid "Opportunities available now"
+msgstr "فرص متاحة الآن"
+
+msgid "Latest procurement requests"
+msgstr "أحدث طلبات التوريد"
+
+msgid "View all requests"
+msgstr "عرض جميع الطلبات"
+
+msgid "Published procurement requests will appear here."
+msgstr "ستظهر طلبات التوريد المنشورة هنا."
+
+msgid "A Sham University graduation project"
+msgstr "مشروع تخرج في جامعة الشام"
+
+msgid "Ready to improve your procurement process?"
+msgstr "جاهز لتطوير عملية التوريد؟"
+
+msgid ""
+"Create your account for free and publish your first request for quotation in "
+"minutes."
+msgstr "أنشئ حسابك مجاناً وانشر أول طلب عرض سعر خلال دقائق."
+
+msgid "Create a free account"
+msgstr "إنشاء حساب مجاني"
+
+msgid "Supplier workspace"
+msgstr "مساحة عمل المورّد"
+
+msgid "My products and services"
+msgstr "منتجاتي وخدماتي"
+
+msgid ""
+"Maintain a clear reference catalog that presents your supplier capabilities."
+msgstr "حافظ على كتالوج استرشادي واضح يعرّف بإمكاناتك كمورّد."
+
+msgid "Add catalog item"
+msgstr "إضافة عنصر للكتالوج"
+
+#, python-format
+msgid "1 item in your catalog"
+msgid_plural "%(counter)s items in your catalog"
+msgstr[0] "عنصر واحد في كتالوجك"
+msgstr[1] "%(counter)s عناصر في كتالوجك"
+
+msgid "View public catalog"
+msgstr "عرض الكتالوج العام"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Hidden"
+msgstr "مخفي"
+
+msgid "No description was provided."
+msgstr "لم يُضف وصف."
+
+msgid "Minimum order"
+msgstr "الحد الأدنى للطلب"
+
+msgid "Hide"
+msgstr "إخفاء"
+
+msgid "Publish"
+msgstr "نشر"
+
+msgid "Your catalog is empty"
+msgstr "كتالوجك فارغ"
+
+msgid ""
+"Add your first product or service to present your capabilities to project "
+"owners."
+msgstr "أضف أول منتج أو خدمة لعرض إمكاناتك أمام أصحاب المشاريع."
+
+msgid "Add first item"
+msgstr "إضافة أول عنصر"
+
+msgid "Supplier proposals center"
+msgstr "مركز عروض المورّد"
+
+msgid "My submitted quotes"
+msgstr "عروضي المرسلة"
+
+msgid ""
+"Review your commercial proposals and update or withdraw pending quotes "
+"before their deadlines."
+msgstr ""
+"راجع عروضك التجارية وعدّل العروض المعلّقة أو اسحبها قبل مواعيدها النهائية."
+
+msgid "Browse opportunities"
+msgstr "استعراض الفرص"
+
+msgid "Filter by quote status"
+msgstr "التصفية حسب حالة العرض"
+
+msgid "All statuses"
+msgstr "جميع الحالات"
+
+msgid "Apply filter"
+msgstr "تطبيق التصفية"
+
+msgid "Clear filter"
+msgstr "مسح التصفية"
+
+msgid "Quote records"
+msgstr "سجل العروض"
+
+#, python-format
+msgid "Submitted %(submitted)s"
+msgstr "أُرسل في %(submitted)s"
+
+msgid "Delivery time"
+msgstr "مدة التسليم"
+
+#, python-format
+msgid "1 day"
+msgid_plural "%(counter)s days"
+msgstr[0] "يوم واحد"
+msgstr[1] "%(counter)s أيام"
+
+msgid "Open order"
+msgstr "فتح أمر الشراء"
+
+msgid "Edit quote"
+msgstr "تعديل العرض"
+
+msgid "Withdraw"
+msgstr "سحب"
+
+msgid "Withdraw this quote? This action cannot be undone."
+msgstr "هل تريد سحب هذا العرض؟ لا يمكن التراجع عن هذا الإجراء."
+
+msgid "Confirm withdrawal"
+msgstr "تأكيد السحب"
+
+msgid "View request"
+msgstr "عرض الطلب"
+
+#, python-format
+msgid "Request deadline: %(deadline)s"
+msgstr "ينتهي في %(deadline)s"
+
+msgid "No quotes match this filter"
+msgstr "لا توجد عروض مطابقة لهذه التصفية"
+
+msgid "You have not submitted quotes yet"
+msgstr "لم ترسل عروضاً بعد"
+
+msgid ""
+"Browse open procurement requests and submit a competitive commercial "
+"proposal."
+msgstr "استعرض طلبات التوريد المفتوحة وقدّم عرضاً تجارياً منافساً."
+
+msgid "Activity center"
+msgstr "مركز النشاط"
+
+msgid ""
+"Follow quote, order, payment, and review updates from one academic workspace."
+msgstr ""
+"تابع تحديثات العروض وأوامر الشراء والدفع والتقييم من مساحة أكاديمية واحدة."
+
+msgid "Mark all as read"
+msgstr "تحديد الكل كمقروء"
+
+msgid "New"
+msgstr "جديد"
+
+#, python-format
+msgid "Order %(number)s"
+msgstr "أمر الشراء %(number)s"
+
+msgid "Open"
+msgstr "فتح"
+
+msgid "No notifications yet"
+msgstr "لا توجد إشعارات بعد"
+
+msgid ""
+"Updates about your requests and orders will appear here as the procurement "
+"workflow progresses."
+msgstr "ستظهر هنا تحديثات طلباتك وأوامر الشراء مع تقدّمها في مسار عمل التوريد."
+
+msgid "Sham University"
+msgstr "جامعة الشام"
+
+msgid "Official purchase order"
+msgstr "أمر شراء رسمي"
+
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+msgid "Print order"
+msgstr "طباعة أمر الشراء"
+
+msgid "All orders"
+msgstr "جميع أوامر الشراء"
+
+msgid "This order was cancelled"
+msgstr "تم إلغاء أمر الشراء هذا"
+
+msgid ""
+"The workflow is closed. Review the activity log below for the recorded "
+"history."
+msgstr "أُغلق مسار العمل. راجع سجل النشاط أدناه للاطلاع على التسلسل الموثّق."
+
+msgid "Order progress"
+msgstr "تقدّم أمر الشراء"
+
+msgid ""
+"A transparent timeline from supplier confirmation through project owner "
+"receipt."
+msgstr "تسلسل زمني شفاف يبدأ بتأكيد المورّد وينتهي باستلام صاحب المشروع."
+
+msgid "Order details"
+msgstr "تفاصيل أمر الشراء"
+
+msgid "Delivery agreement"
+msgstr "اتفاق التسليم"
+
+msgid "Expected delivery"
+msgstr "التسليم المتوقع"
+
+msgid "Not set"
+msgstr "غير محدد"
+
+msgid "Purchase order items and specifications"
+msgstr "بنود أمر الشراء ومواصفاته"
+
+msgid "No item details are available."
+msgstr "لا تتوفر تفاصيل للأصناف."
+
+msgid "Accepted quote notes"
+msgstr "ملاحظات العرض المقبول"
+
+msgid "Status activity log"
+msgstr "سجل نشاط الحالات"
+
+msgid "No status events have been recorded yet."
+msgstr "لم تُسجّل أي أحداث للحالة بعد."
+
+msgid "Next workflow action"
+msgstr "الإجراء التالي في مسار العمل"
+
+msgid "Confirm that the supplier has accepted this purchase order."
+msgstr "تأكيد قبول المورّد لأمر الشراء هذا."
+
+msgid "Start preparation after the payment requirements have been satisfied."
+msgstr "بدء التجهيز بعد استيفاء متطلبات الدفع."
+
+msgid "Record shipment and add a tracking reference when available."
+msgstr "تسجيل الشحن وإضافة مرجع التتبّع عند توفره."
+
+msgid "Record that the shipment reached its destination."
+msgstr "تسجيل وصول الشحنة إلى وجهتها."
+
+msgid "Confirm receipt and close the procurement workflow."
+msgstr "تأكيد الاستلام وإغلاق مسار عمل التوريد."
+
+msgid ""
+"Preparation is locked until payment is confirmed. Cash-on-delivery orders "
+"may proceed after their details are submitted."
+msgstr ""
+"يظل التجهيز متوقفاً حتى تأكيد الدفع. ويمكن لأوامر الدفع عند الاستلام المتابعة "
+"بعد إرسال بياناتها."
+
+#, python-format
+msgid "Move to “%(status)s”"
+msgstr "الانتقال إلى «%(status)s»"
+
+msgid "Waiting for payment confirmation"
+msgstr "بانتظار تأكيد الدفع"
+
+msgid "Method"
+msgstr "الطريقة"
+
+msgid "Amount"
+msgstr "المبلغ"
+
+msgid "Reference"
+msgstr "المرجع"
+
+msgid "Submitted"
+msgstr "تم الإرسال"
+
+msgid "Review payment details"
+msgstr "مراجعة بيانات الدفع"
+
+msgid "Resubmit payment details"
+msgstr "إعادة إرسال بيانات الدفع"
+
+msgid "Payment details have not been submitted"
+msgstr "لم تُرسل بيانات الدفع"
+
+msgid "Submit payment details"
+msgstr "إرسال بيانات الدفع"
+
+msgid "Payment details can be submitted after the supplier confirms the order."
+msgstr "يمكن إرسال بيانات الدفع بعد أن يؤكد المورّد أمر الشراء."
+
+msgid "Parties"
+msgstr "الأطراف"
+
+msgid "Verified supplier"
+msgstr "مورّد موثّق"
+
+msgid "Supplier review"
+msgstr "تقييم المورّد"
+
+#, python-format
+msgid "Rating: %(rating)s out of 5"
+msgstr "التقييم: %(rating)s من 5"
+
+msgid "No written comment was provided."
+msgstr "لم يُضف تعليق مكتوب."
+
+msgid "Share your experience after completing this procurement order."
+msgstr "شارك تجربتك بعد اكتمال أمر الشراء هذا."
+
+msgid "Review supplier"
+msgstr "تقييم المورّد"
+
+msgid "The project owner has not submitted a review yet."
+msgstr "لم يرسل صاحب المشروع تقييماً بعد."
+
+msgid "Supplier review becomes available after the order is completed."
+msgstr "يصبح تقييم المورّد متاحاً بعد اكتمال أمر الشراء."
+
+msgid "Academic audit trail"
+msgstr "سجل التدقيق الأكاديمي"
+
+msgid ""
+"Order, payment, and status actions are recorded to support accountability "
+"and transparent procurement."
+msgstr ""
+"تُسجّل إجراءات أوامر الشراء والدفع والحالات لدعم المساءلة وشفافية التوريد."
+
+msgid "Project owner signature"
+msgstr "توقيع صاحب المشروع"
+
+msgid "Supplier signature"
+msgstr "توقيع المورّد"
+
+msgid "Procurement execution center"
+msgstr "مركز تنفيذ عمليات التوريد"
+
+msgid "All purchase orders"
+msgstr "جميع أوامر الشراء"
+
+msgid "My purchase orders"
+msgstr "أوامر الشراء الخاصة بي"
+
+msgid ""
+"Follow selected quotes from confirmation through preparation, shipping, and "
+"delivery."
+msgstr "تابع العروض المختارة من التأكيد مروراً بالتجهيز والشحن وحتى التسليم."
+
+msgid ""
+"Monitor order progress, payment review, and fulfillment activity across the "
+"platform."
+msgstr "راقب تقدّم الأوامر ومراجعة الدفعات وأنشطة التنفيذ على مستوى المنصة."
+
+msgid ""
+"Track awarded requests, payment status, delivery progress, and completed "
+"purchases."
+msgstr "تابع الطلبات المعتمدة وحالة الدفع وتقدّم التسليم والمشتريات المكتملة."
+
+msgid "Filter by order status"
+msgstr "التصفية حسب حالة أمر الشراء"
+
+msgid "Order records"
+msgstr "سجلات أوامر الشراء"
+
+#, python-format
+msgid "1 order"
+msgid_plural "%(counter)s orders"
+msgstr[0] "أمر شراء واحد"
+msgstr[1] "%(counter)s أوامر شراء"
+
+msgid "Payment not submitted"
+msgstr "لم تُرسل بيانات الدفع"
+
+#, python-format
+msgid "Created on %(created)s"
+msgstr "أُنشئ في %(created)s"
+
+#, python-format
+msgid "Delivery agreement: 1 day"
+msgid_plural "Delivery agreement: %(counter)s days"
+msgstr[0] "اتفاق التسليم: يوم واحد"
+msgstr[1] "اتفاق التسليم: %(counter)s أيام"
+
+msgid "No orders match this filter"
+msgstr "لا توجد أوامر شراء مطابقة لهذه التصفية"
+
+msgid "Try another status or clear the filter to view all purchase orders."
+msgstr "جرّب حالة أخرى أو امسح التصفية لعرض جميع أوامر الشراء."
+
+msgid "No selected quotes yet"
+msgstr "لا توجد عروض مختارة بعد"
+
+msgid ""
+"Purchase orders will appear here when a project owner selects one of your "
+"quotes."
+msgstr "ستظهر أوامر الشراء هنا عندما يختار صاحب مشروع أحد عروضك."
+
+msgid "No purchase orders are available"
+msgstr "لا تتوفر أوامر شراء"
+
+msgid ""
+"Awarded procurement requests will appear here for administration review."
+msgstr "ستظهر طلبات التوريد المعتمدة هنا لمراجعتها من الإدارة."
+
+msgid "Back to dashboard"
+msgstr "العودة إلى لوحة التحكم"
+
+msgid "You do not have purchase orders yet"
+msgstr "ليس لديك أوامر شراء بعد"
+
+msgid "Select a supplier quote to create and track your first purchase order."
+msgstr "اختر عرض مورّد لإنشاء أول أمر شراء ومتابعته."
+
+msgid "Create a procurement request"
+msgstr "إنشاء طلب توريد"
+
+msgid "Financial workflow"
+msgstr "المسار المالي"
+
+msgid ""
+"Record the selected payment method so the platform administration can verify "
+"it before fulfillment continues."
+msgstr ""
+"سجّل طريقة الدفع المختارة لتتمكن إدارة المنصة من التحقق منها قبل متابعة "
+"التنفيذ."
+
+msgid "The previous submission requires correction"
+msgstr "تتطلب البيانات المرسلة سابقاً تصحيحاً"
+
+msgid "Please review the payment details and submit them again."
+msgstr "يرجى مراجعة بيانات الدفع وإرسالها مجدداً."
+
+msgid "Your payment details are under review"
+msgstr "بيانات الدفع قيد المراجعة"
+
+msgid "You may update and resubmit the information if a correction is needed."
+msgstr "يمكنك تحديث المعلومات وإعادة إرسالها إذا لزم التصحيح."
+
+msgid "Return to order"
+msgstr "العودة إلى أمر الشراء"
+
+msgid "Update and submit for review"
+msgstr "التحديث والإرسال للمراجعة"
+
+msgid "Submit for review"
+msgstr "الإرسال للمراجعة"
+
+msgid "Payment has been confirmed"
+msgstr "تم تأكيد الدفع"
+
+msgid "No further payment action is required for this order."
+msgstr "لا يلزم اتخاذ أي إجراء دفع إضافي لهذا الأمر."
+
+msgid "Order summary"
+msgstr "ملخص أمر الشراء"
+
+msgid "Amount due"
+msgstr "المبلغ المستحق"
+
+msgid "Verification and privacy"
+msgstr "التحقق والخصوصية"
+
+msgid ""
+"The platform records a payment reference for administrative verification. "
+"Never enter card passwords, PINs, or other secret banking credentials."
+msgstr ""
+"تسجّل المنصة مرجع الدفع لأغراض التحقق الإداري. لا تُدخل أبداً كلمات مرور "
+"البطاقات أو أرقامها السرية أو أي بيانات مصرفية سرية أخرى."
+
+msgid "Review payment"
+msgstr "مراجعة الدفع"
+
+msgid "Payment review"
+msgstr "مراجعة الدفع"
+
+msgid "Administration workspace"
+msgstr "مساحة عمل الإدارة"
+
+msgid "Review payment submission"
+msgstr "مراجعة بيانات الدفع المرسلة"
+
+msgid ""
+"Compare the submitted reference with the verified financial record before "
+"recording a decision."
+msgstr "طابق المرجع المرسل مع السجل المالي الموثّق قبل تسجيل القرار."
+
+msgid "Submitted payment record"
+msgstr "سجل الدفع المرسل"
+
+msgid "Read-only information supplied by the project owner"
+msgstr "معلومات للقراءة فقط قدّمها صاحب المشروع"
+
+msgid "Submitted at"
+msgstr "تاريخ الإرسال"
+
+msgid "Owner note"
+msgstr "ملاحظة صاحب المشروع"
+
+msgid "No note was provided."
+msgstr "لم تُضف ملاحظة."
+
+#, python-format
+msgid "Submission number: %(count)s"
+msgstr "رقم الإرسال: %(count)s"
+
+#, python-format
+msgid "Order status: %(status)s"
+msgstr "حالة أمر الشراء: %(status)s"
+
+msgid "Record a decision"
+msgstr "تسجيل قرار"
+
+msgid "This action is added to the procurement record."
+msgstr "يُضاف هذا الإجراء إلى سجل التوريد."
+
+msgid ""
+"A rejection requires a clear reason so the project owner can correct the "
+"submission."
+msgstr "يتطلب الرفض سبباً واضحاً ليتمكن صاحب المشروع من تصحيح البيانات."
+
+msgid "Save payment decision"
+msgstr "حفظ قرار الدفع"
+
+msgid "No pending decision"
+msgstr "لا يوجد قرار معلّق"
+
+msgid ""
+"This payment submission has already been processed and cannot be reviewed "
+"again."
+msgstr "تمت معالجة بيانات الدفع هذه، ولا يمكن مراجعتها مرة أخرى."
+
+msgid "Published by"
+msgstr "نشره"
+
+msgid "On request"
+msgstr "عند الطلب"
+
+msgid "Product or service description"
+msgstr "وصف المنتج أو الخدمة"
+
+msgid "The supplier has not added a detailed description yet."
+msgstr "لم يضف المورّد وصفاً تفصيلياً بعد."
+
+msgid "View supplier profile"
+msgstr "عرض ملف المورّد"
+
+msgid "Need a formal quote?"
+msgstr "هل تحتاج إلى عرض رسمي؟"
+
+msgid "Publish your requirements"
+msgstr "انشر متطلباتك"
+
+msgid ""
+"Create a procurement request with quantities and specifications to receive "
+"competitive supplier quotes."
+msgstr "أنشئ طلب توريد بالكميات والمواصفات لتستقبل عروضاً تنافسية من المورّدين."
+
+msgid "Edit catalog item"
+msgstr "تعديل عنصر الكتالوج"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Edit product or service"
+msgstr "تعديل منتج أو خدمة"
+
+msgid "Add a product or service"
+msgstr "إضافة منتج أو خدمة"
+
+msgid ""
+"Provide clear reference information so project owners can understand your "
+"capabilities before requesting a formal quote."
+msgstr ""
+"قدّم بيانات استرشادية واضحة ليتمكن أصحاب المشاريع من فهم إمكاناتك قبل طلب عرض "
+"رسمي."
+
+msgid "Active items appear in the public catalog after supplier verification."
+msgstr "تظهر العناصر النشطة في الكتالوج العام بعد توثيق المورّد."
+
+msgid "Reference pricing"
+msgstr "التسعير الاسترشادي"
+
+msgid ""
+"Catalog prices are indicative. The binding amount is the quote submitted for "
+"a specific procurement request."
+msgstr ""
+"أسعار الكتالوج استرشادية، والمبلغ الملزم هو العرض المقدّم لطلب توريد محدد."
+
+msgid "Save changes"
+msgstr "حفظ التغييرات"
+
+msgid "Add to catalog"
+msgstr "إضافة إلى الكتالوج"
+
+msgid "Verified supplier network"
+msgstr "شبكة المورّدين الموثّقين"
+
+msgid "Products and services catalog"
+msgstr "كتالوج المنتجات والخدمات"
+
+msgid ""
+"Explore reference offerings published by verified suppliers before creating "
+"a procurement request."
+msgstr ""
+"استكشف العروض الاسترشادية التي نشرها المورّدون الموثّقون قبل إنشاء طلب توريد."
+
+msgid "Search catalog"
+msgstr "البحث في الكتالوج"
+
+msgid "Search by product, service, SKU, or supplier..."
+msgstr "ابحث باسم المنتج أو الخدمة أو رمز الصنف أو المورّد..."
+
+msgid "All categories"
+msgstr "كل التصنيفات"
+
+msgid "Search"
+msgstr "بحث"
+
+#, python-format
+msgid "1 catalog item"
+msgid_plural "%(counter)s catalog items"
+msgstr[0] "عنصر واحد في الكتالوج"
+msgstr[1] "%(counter)s عناصر في الكتالوج"
+
+msgid "Manage my catalog"
+msgstr "إدارة كتالوجي"
+
+msgid "No catalog items match your search"
+msgstr "لا توجد عناصر كتالوج مطابقة لبحثك"
+
+msgid "Try a different search phrase or category."
+msgstr "جرّب عبارة بحث أو تصنيفاً مختلفاً."
+
+#, python-format
+msgid "Request #%(request_number)s"
+msgstr "طلب #%(request_number)s"
+
+msgid "Edit your quote"
+msgstr "تعديل عرضك"
+
+msgid "Pending proposal"
+msgstr "عرض قيد الانتظار"
+
+msgid "Commercial quote details"
+msgstr "تفاصيل العرض التجاري"
+
+#, python-format
+msgid "Deadline: %(deadline)s"
+msgstr "ينتهي في %(deadline)s"
+
+msgid ""
+"Saving replaces the previous amount, delivery time, and notes while "
+"preserving the original submission record."
+msgstr ""
+"يستبدل الحفظ المبلغ ومدة التسليم والملاحظات السابقة مع الحفاظ على سجل "
+"الإرسال الأصلي."
+
+msgid "Save quote changes"
+msgstr "حفظ تعديلات العرض"
+
+msgid "Submit a quote"
+msgstr "تقديم عرض سعر"
+
+msgid "Back to request details"
+msgstr "العودة إلى تفاصيل الطلب"
+
+msgid "Enter an inclusive price and a realistic delivery commitment."
+msgstr "أدخل سعراً شاملاً ومدة تسليم واقعية."
+
+msgid "Supplier proposal"
+msgstr "مقترح المورّد"
+
+msgid ""
+"Review the amount and delivery period carefully before submitting your quote."
+msgstr "راجع المبلغ ومدة التسليم بعناية قبل إرسال عرضك."
+
+msgid "Submit quote"
+msgstr "إرسال العرض"
+
+msgid "Academic analytics center"
+msgstr "مركز التحليلات الأكاديمية"
+
+msgid "Procurement reports"
+msgstr "تقارير التوريد"
+
+msgid ""
+"A platform-wide summary of users, requests, purchase orders, and pending "
+"financial reviews."
+msgstr ""
+"ملخص شامل للمنصة يعرض المستخدمين والطلبات وأوامر الشراء والمراجعات المالية "
+"المعلّقة."
+
+msgid ""
+"A focused summary of your submitted quotes, awarded work, revenue, and "
+"supplier rating."
+msgstr "ملخص مركّز لعروضك المرسلة والأعمال المعتمدة والإيرادات وتقييم المورّد."
+
+msgid ""
+"A concise summary of your procurement requests, committed spend, and "
+"completed orders."
+msgstr "ملخص موجز لطلبات التوريد والإنفاق الملتزم به وأوامر الشراء المكتملة."
+
+msgid "Export CSV"
+msgstr "تصدير CSV"
+
+msgid "Report generated"
+msgstr "تاريخ إنشاء التقرير"
+
+msgid "Procurement volume"
+msgstr "حجم التوريد"
+
+msgid "Payments awaiting review"
+msgstr "دفعات بانتظار المراجعة"
+
+msgid "Submitted quotes"
+msgstr "العروض المرسلة"
+
+msgid "Contracted revenue"
+msgstr "الإيرادات المتعاقد عليها"
+
+msgid "Quote win rate"
+msgstr "معدل فوز العروض"
+
+msgid "Average rating"
+msgstr "متوسط التقييم"
+
+msgid "No reviews"
+msgstr "لا توجد تقييمات"
+
+msgid "Committed spend"
+msgstr "الإنفاق الملتزم به"
+
+msgid "Completed orders"
+msgstr "أوامر الشراء المكتملة"
+
+msgid "Order status distribution"
+msgstr "توزيع حالات أوامر الشراء"
+
+msgid "Current purchase orders grouped by workflow stage"
+msgstr "أوامر الشراء الحالية مصنّفة حسب مرحلة مسار العمل"
+
+msgid "View purchase orders"
+msgstr "عرض أوامر الشراء"
+
+#, python-format
+msgid "%(counter)s order"
+msgid_plural "%(counter)s orders"
+msgstr[0] "%(counter)s أمر شراء"
+msgstr[1] "%(counter)s أوامر شراء"
+
+msgid "No order data available"
+msgstr "لا تتوفر بيانات لأوامر الشراء"
+
+msgid ""
+"The status report will populate after the first quote is awarded and a "
+"purchase order is created."
+msgstr "ستظهر بيانات تقرير الحالات بعد اعتماد أول عرض وإنشاء أمر شراء."
+
+msgid "Browse procurement requests"
+msgstr "استعراض طلبات التوريد"
+
+msgid "How to read this report"
+msgstr "كيفية قراءة هذا التقرير"
+
+msgid ""
+"Figures reflect the records currently visible to your account. Monetary "
+"totals represent awarded order values, not necessarily collected or settled "
+"payments."
+msgstr ""
+"تعكس الأرقام السجلات المتاحة حالياً لحسابك. وتمثل الإجماليات المالية قيم "
+"الأوامر المعتمدة، وليس بالضرورة الدفعات المحصّلة أو المسوّاة."
+
+msgid "Academic transparency"
+msgstr "الشفافية الأكاديمية"
+
+msgid "Evidence-based procurement"
+msgstr "توريد قائم على الأدلة"
+
+msgid ""
+"Each order progresses through controlled states, creating a clear record for "
+"operational review and project evaluation."
+msgstr ""
+"يتقدّم كل أمر شراء عبر حالات مضبوطة، ما ينشئ سجلاً واضحاً للمراجعة التشغيلية "
+"وتقييم المشروع."
+
+msgid "Completed order"
+msgstr "أمر شراء مكتمل"
+
+msgid "Share your experience"
+msgstr "شارك تجربتك"
+
+msgid ""
+"Your feedback supports transparent procurement and helps suppliers improve "
+"their service quality."
+msgstr "يسهم تقييمك في شفافية التوريد ويساعد المورّدين على تحسين جودة خدماتهم."
+
+msgid "Order"
+msgstr "أمر الشراء"
+
+msgid "Request"
+msgstr "طلب"
+
+msgid "Completed at"
+msgstr "تاريخ الاكتمال"
+
+msgid "Quality evaluation"
+msgstr "تقييم الجودة"
+
+msgid "Evaluate the supplier's performance"
+msgstr "قيّم أداء المورّد"
+
+msgid ""
+"Choose an overall rating and add an optional comment based on this completed "
+"order."
+msgstr "اختر تقييماً عاماً وأضف تعليقاً اختيارياً بناءً على أمر الشراء المكتمل."
+
+msgid "Fair review guidance"
+msgstr "إرشادات التقييم العادل"
+
+msgid ""
+"Focus on quality, delivery commitment, and communication. Do not include "
+"private contact or financial information."
+msgstr ""
+"ركّز على الجودة والالتزام بالتسليم والتواصل، ولا تُدرج بيانات اتصال خاصة أو "
+"معلومات مالية."
+
+msgid "Submit review"
+msgstr "إرسال التقييم"
+
+msgid "Review is not available yet"
+msgstr "التقييم غير متاح بعد"
+
+msgid ""
+"A supplier review can be submitted only after the project owner confirms "
+"that the order is completed."
+msgstr "لا يمكن إرسال تقييم المورّد إلا بعد أن يؤكد صاحب المشروع اكتمال الأمر."
+
+msgid "Compare quotes"
+msgstr "مقارنة العروض"
+
+msgid "Compare received quotes"
+msgstr "مقارنة العروض المستلمة"
+
+msgid "Back to request"
+msgstr "العودة إلى الطلب"
+
+msgid "Lowest quote"
+msgstr "أقل عرض"
+
+msgid "Fastest delivery"
+msgstr "أسرع تسليم"
+
+msgid "Average quote value"
+msgstr "متوسط قيمة العروض"
+
+msgid "Administration review mode"
+msgstr "وضع مراجعة الإدارة"
+
+msgid "Only the project owner can select the winning quote."
+msgstr "يحق لصاحب المشروع وحده اختيار العرض الفائز."
+
+msgid "Quote comparison"
+msgstr "مقارنة العروض"
+
+msgid ""
+"Compare price, delivery time, and supplier details before making your "
+"selection."
+msgstr "قارن السعر ومدة التسليم وبيانات المورّد قبل اتخاذ قرارك."
+
+msgid "Highest decision-support score"
+msgstr "أعلى درجة لدعم القرار"
+
+msgid "Lowest price"
+msgstr "أقل سعر"
+
+msgid "Supplier verification is not currently valid"
+msgstr "توثيق المورّد غير صالح حالياً"
+
+msgid "Supplier rating"
+msgstr "تقييم المورّد"
+
+msgid "No ratings yet"
+msgstr "لا توجد تقييمات بعد"
+
+msgid "Decision-support score"
+msgstr "درجة دعم القرار"
+
+msgid "Supplier notes"
+msgstr "ملاحظات المورّد"
+
+msgid "No notes were provided."
+msgstr "لم تُضف ملاحظات."
+
+#, python-format
+msgid "Submitted on %(submitted)s"
+msgstr "أُرسل في %(submitted)s"
+
+msgid "Open purchase order"
+msgstr "فتح أمر الشراء"
+
+msgid ""
+"This quote cannot be selected until the supplier account is active and "
+"verified again."
+msgstr "لا يمكن اختيار هذا العرض حتى يُعاد تفعيل حساب المورّد وتوثيقه."
+
+msgid "Select this quote"
+msgstr "اختيار هذا العرض"
+
+msgid ""
+"Selecting this quote creates a purchase order and marks the remaining quotes "
+"as not selected."
+msgstr ""
+"يؤدي اختيار هذا العرض إلى إنشاء أمر شراء وتصنيف بقية العروض كغير مختارة."
+
+msgid "Confirm selection"
+msgstr "تأكيد الاختيار"
+
+msgid "Transparent selection record"
+msgstr "سجل اختيار شفاف"
+
+msgid ""
+"The selected price and delivery time are copied to the purchase order, and "
+"every workflow change is timestamped."
+msgstr ""
+"يُنسخ السعر ومدة التسليم المختاران إلى أمر الشراء، ويُسجّل توقيت كل تغيير في "
+"مسار العمل."
+
+#, python-format
+msgid ""
+"The advisory score uses transparent weights: price 50%%, delivery time 30%%, "
+"and supplier rating 20%%. An unrated supplier receives a neutral 3/5 "
+"baseline. The score supports — but never replaces — the project owner's "
+"decision."
+msgstr ""
+"تستخدم الدرجة الاستشارية أوزاناً شفافة: السعر 50%%، ومدة التسليم 30%%، وتقييم "
+"المورّد 20%%. ويحصل المورّد غير المقيّم على أساس محايد 3/5. تدعم الدرجة قرار "
+"صاحب المشروع ولا تستبدله."
+
+msgid "No quotes have arrived yet"
+msgstr "لم تصل عروض بعد."
+
+msgid ""
+"The comparison workspace will become available as soon as a supplier submits "
+"a quote."
+msgstr "ستصبح مساحة المقارنة متاحة فور إرسال أحد المورّدين عرضاً."
+
+msgid "Delivery location"
+msgstr "مكان التسليم"
+
+msgid "Quote deadline"
+msgstr "آخر موعد للعروض"
+
+msgid "Budget range"
+msgstr "نطاق الميزانية"
+
+msgid "Not disclosed"
+msgstr "غير معلن"
+
+msgid "Items and specifications"
+msgstr "الأصناف والمواصفات"
+
+msgid "Requested items and specifications"
+msgstr "البنود المطلوبة ومواصفاتها"
+
+#, python-format
+msgid "Received quote (1)"
+msgid_plural "Received quotes (%(counter)s)"
+msgstr[0] "العروض المستلمة (عرض واحد)"
+msgstr[1] "العروض المستلمة (%(counter)s)"
+
+msgid "No notes"
+msgstr "بدون ملاحظات"
+
+msgid "Quote value"
+msgstr "قيمة العرض"
+
+msgid "Delivery"
+msgstr "التسليم"
+
+msgid "No quotes have arrived yet."
+msgstr "لم تصل عروض بعد."
+
+msgid "Request owner"
+msgstr "صاحب الطلب"
+
+msgid "Location not provided"
+msgstr "بيانات الموقع غير مضافة"
+
+msgid "Registered organization account"
+msgstr "حساب منشأة مسجل"
+
+msgid "Your quote was received"
+msgstr "تم استلام عرضك"
+
+msgid "Your quote is under review"
+msgstr "عرضك قيد المراجعة"
+
+#, python-format
+msgid "Quote value: %(amount)s · delivery in %(days)s days"
+msgstr "قيمة العرض: %(amount)s · التسليم خلال %(days)s أيام"
+
+msgid "Supplier verification required"
+msgstr "توثيق المورّد مطلوب"
+
+msgid ""
+"Complete your organization profile and upload the registration document "
+"before submitting quotes."
+msgstr "أكمل ملف منشأتك وارفع وثيقة التسجيل قبل تقديم العروض."
+
+msgid "Open organization profile"
+msgstr "فتح ملف المنشأة"
+
+msgid "Can you fulfill this request?"
+msgstr "هل يمكنك تنفيذ الطلب؟"
+
+msgid "Submit your price and delivery time directly to the project owner."
+msgstr "قدّم سعرك ومدة التسليم مباشرة إلى صاحب المشروع."
+
+msgid "Log in to submit a quote"
+msgstr "سجّل الدخول لتقديم عرض"
+
+msgid "This opportunity is available to registered suppliers."
+msgstr "هذه الفرصة متاحة للمورّدين المسجلين."
+
+msgid "Request summary"
+msgstr "ملخص الطلب"
+
+#, python-format
+msgid "1 quote has arrived. You can review it on this page."
+msgid_plural ""
+"%(counter)s quotes have arrived. You can review them on this page."
+msgstr[0] "وصل عرض واحد. يمكنك مراجعته في هذه الصفحة."
+msgstr[1] "وصل %(counter)s عروض. يمكنك مراجعتها في هذه الصفحة."
+
+msgid "Academic integrity note"
+msgstr "ملاحظة النزاهة الأكاديمية"
+
+msgid ""
+"All offers are recorded with a timestamp to support transparency and fair "
+"comparison."
+msgstr "تُسجّل جميع العروض مع توقيتها لدعم الشفافية والمقارنة العادلة."
+
+msgid "Procurement workspace"
+msgstr "مساحة عمل التوريد"
+
+msgid "Create a request for quotation"
+msgstr "إنشاء طلب عرض سعر"
+
+msgid ""
+"Clear requirements help qualified suppliers submit stronger, more accurate "
+"quotes."
+msgstr ""
+"تساعد المتطلبات الواضحة المورّدين المؤهلين على تقديم عروض أقوى وأكثر دقة."
+
+msgid "Current step"
+msgstr "الخطوة الحالية"
+
+msgid "Request information"
+msgstr "بيانات الطلب"
+
+msgid "Define the scope, delivery location, deadline, and expected budget."
+msgstr "حدّد النطاق ومكان التسليم والموعد النهائي والميزانية المتوقعة."
+
+msgid "Required items"
+msgstr "الأصناف المطلوبة"
+
+msgid "Add at least one item with a clear quantity and specification."
+msgstr "أضف بنداً واحداً على الأقل مع كمية ومواصفات واضحة."
+
+msgid "Add item"
+msgstr "إضافة بند"
+
+msgid "Remove item"
+msgstr "حذف البند"
+
+msgid "Publish request"
+msgstr "نشر الطلب"
+
+msgid "Opportunity marketplace"
+msgstr "سوق الفرص"
+
+msgid "Open procurement requests"
+msgstr "طلبات التوريد المفتوحة"
+
+msgid ""
+"Find requirements matching your business and submit a clear, competitive "
+"quote."
+msgstr "ابحث عن الاحتياجات المطابقة لنشاطك وقدّم عرضاً واضحاً وتنافسياً."
+
+msgid "Search requests"
+msgstr "البحث في الطلبات"
+
+msgid "Search by title or city..."
+msgstr "ابحث بالعنوان أو المدينة..."
+
+#, python-format
+msgid "1 available request"
+msgid_plural "%(counter)s available requests"
+msgstr[0] "طلب واحد متاح"
+msgstr[1] "%(counter)s طلبات متاحة"
+
+msgid "Publish a new request"
+msgstr "نشر طلب جديد"
+
+msgid "Deadline"
+msgstr "آخر موعد"
+
+#, python-format
+msgid "1 quote submitted"
+msgid_plural "%(counter)s quotes submitted"
+msgstr[0] "تم تقديم عرض واحد"
+msgstr[1] "تم تقديم %(counter)s عروض"
+
+msgid "No matching results"
+msgstr "لا توجد نتائج مطابقة"
+
+msgid "Try changing the search phrase or category."
+msgstr "جرّب تغيير عبارة البحث أو التصنيف."
+
+msgid "Products and services supplier"
+msgstr "مورّد منتجات وخدمات"
+
+msgid "About the supplier"
+msgstr "عن المورّد"
+
+msgid "The supplier has not added a public description yet."
+msgstr "لم يضف المورّد نبذة عامة بعد."
+
+msgid "Verification note"
+msgstr "ملاحظة التوثيق"
+
+msgid ""
+"Verification confirms that the platform administration reviewed the "
+"supplier's organization record. It does not replace evaluating each "
+"commercial quote."
+msgstr ""
+"يؤكد التوثيق أن إدارة المنصة راجعت سجل منشأة المورّد، ولا يغني عن تقييم كل "
+"عرض تجاري."
+
+msgid "Reference offerings currently published by this supplier"
+msgstr "العروض الاسترشادية التي ينشرها هذا المورّد حالياً"
+
+msgid "Browse full catalog"
+msgstr "استعراض الكتالوج الكامل"
+
+msgid "This supplier has not published catalog items yet."
+msgstr "لم ينشر هذا المورّد عناصر في الكتالوج بعد."
+
+#~ msgid "Only suppliers can submit quotes."
+#~ msgstr "يُسمح للمورّدين فقط بتقديم العروض."
+
+#~ msgid "Office supplies"
+#~ msgstr "مواد مكتبية"
+
+#~ msgid "Furnishing the new branch offices"
+#~ msgstr "تجهيز مكاتب الفرع الجديد"
+
+#~ msgid "Occupational safety equipment"
+#~ msgstr "معدات السلامة المهنية"
+
+#~ msgid "Ends in 3 days"
+#~ msgstr "ينتهي خلال 3 أيام"
+
+#~ msgid "Menu"
+#~ msgstr "القائمة"

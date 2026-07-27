@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Purchase orders" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="absolute -end-8 -top-14 select-none font-serif text-[9rem] font-black leading-none text-university-800/[.035] dark:text-white/[.025]" aria-hidden="true">PO</div>
+        <div class="relative flex flex-col justify-between gap-5 md:flex-row md:items-center">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Procurement execution center" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">
+                    {% if user.is_staff %}{% translate "All purchase orders" %}{% else %}{% translate "My purchase orders" %}{% endif %}
+                </h1>
+                <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-300">
+                    {% if user.is_supplier %}
+                        {% translate "Follow selected quotes from confirmation through preparation, shipping, and delivery." %}
+                    {% elif user.is_staff %}
+                        {% translate "Monitor order progress, payment review, and fulfillment activity across the platform." %}
+                    {% else %}
+                        {% translate "Track awarded requests, payment status, delivery progress, and completed purchases." %}
+                    {% endif %}
+                </p>
+            </div>
+            {% if user.is_owner %}
+                <a href="{% url 'rfq_create' %}" class="primary-button shrink-0">
+                    <span class="me-2 text-lg" aria-hidden="true">+</span>
+                    {% translate "New request for quotation" %}
+                </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="academic-card mt-6 p-4 sm:p-5">
+        <form method="get" class="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <div class="flex-1">
+                <label for="order-status-filter" class="text-xs font-black text-slate-500 dark:text-slate-300">{% translate "Filter by order status" %}</label>
+                <select id="order-status-filter" name="status" class="form-input">
+                    <option value="">{% translate "All statuses" %}</option>
+                    {% for value, label in statuses %}
+                        <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="primary-button sm:mb-0.5">{% translate "Apply filter" %}</button>
+            {% if selected_status %}
+                <a href="{% url 'order_list' %}" class="secondary-button sm:mb-0.5">{% translate "Clear filter" %}</a>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if orders %}
+        <div class="mt-6 flex items-center justify-between gap-4">
+            <h2 class="text-lg font-black text-university-800 dark:text-white">{% translate "Order records" %}</h2>
+            <span class="rounded-full bg-university-100 px-3 py-1 text-xs font-black text-university-700 dark:bg-white/5 dark:text-gold-200">
+                {% blocktranslate count counter=page_obj.paginator.count %}1 order{% plural %}{{ counter }} orders{% endblocktranslate %}
+            </span>
+        </div>
+
+        <div class="mt-4 space-y-4">
+            {% for order in orders %}
+                <article class="academic-card group overflow-hidden">
+                    <a href="{% url 'order_detail' order.pk %}" class="block p-5 transition hover:bg-university-50/70 dark:hover:bg-white/[.025] sm:p-6">
+                        <div class="grid gap-5 lg:grid-cols-[1.35fr_.8fr_.8fr_auto] lg:items-center">
+                            <div class="min-w-0">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-xs font-black text-gold-600 dark:text-gold-300">{{ order.order_number }}</span>
+                                    <span class="rounded-full px-3 py-1 text-[11px] font-black
+                                        {% if order.status == 'completed' %}bg-emerald-50 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200
+                                        {% elif order.status == 'cancelled' %}bg-red-50 text-red-700 dark:bg-red-400/10 dark:text-red-200
+                                        {% elif order.status == 'shipped' or order.status == 'delivered' %}bg-sky-50 text-sky-700 dark:bg-sky-400/10 dark:text-sky-200
+                                        {% elif order.status == 'preparing' %}bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-200
+                                        {% else %}bg-university-50 text-university-700 dark:bg-white/5 dark:text-gold-200{% endif %}">
+                                        {{ order.get_status_display }}
+                                    </span>
+                                </div>
+                                <h2 class="mt-2 truncate text-lg font-black text-university-800 transition group-hover:text-university-600 dark:text-white dark:group-hover:text-gold-300">{{ order.quote.rfq.title }}</h2>
+                                <p class="mt-2 text-xs text-slate-400">
+                                    {% if user.is_supplier %}
+                                        {% translate "Project owner" %}: {{ order.owner.company.trade_name|default:order.owner.username }}
+                                    {% else %}
+                                        {% translate "Supplier" %}: {{ order.supplier.company.trade_name|default:order.supplier.username }}
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs text-slate-400">{% translate "Agreed amount" %}</span>
+                                <strong class="mt-1 block text-lg text-gold-700 dark:text-gold-300">{{ order.agreed_amount|floatformat:2 }} <small class="text-xs">{{ order.currency }}</small></strong>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs text-slate-400">{% translate "Expected delivery" %}</span>
+                                <strong class="mt-1 block text-sm text-university-800 dark:text-white">
+                                    {% if order.expected_delivery_date %}
+                                        {{ order.expected_delivery_date|date:"SHORT_DATE_FORMAT" }}
+                                    {% else %}
+                                        {% translate "Not set" %}
+                                    {% endif %}
+                                </strong>
+                                {% with order_payment=order.payment %}
+                                    <span class="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-300">
+                                        <span class="h-2 w-2 rounded-full {% if order_payment.status == 'confirmed' %}bg-emerald-500{% elif order_payment.status == 'rejected' %}bg-red-500{% elif order_payment %}bg-amber-500{% else %}bg-slate-300{% endif %}"></span>
+                                        {% if order_payment %}
+                                            {{ order_payment.get_status_display }}
+                                        {% else %}
+                                            {% translate "Payment not submitted" %}
+                                        {% endif %}
+                                    </span>
+                                {% endwith %}
+                            </div>
+
+                            <span class="inline-flex items-center gap-2 text-sm font-black text-university-700 dark:text-gold-300">
+                                {% translate "Open order" %}
+                                <svg class="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-university-100 bg-university-50/60 px-5 py-3 text-xs text-slate-400 dark:border-white/10 dark:bg-white/[.02] sm:px-6">
+                        <span>{% blocktranslate with created=order.created_at|date:"SHORT_DATE_FORMAT" %}Created on {{ created }}{% endblocktranslate %}</span>
+                        <span>{% blocktranslate count counter=order.delivery_days %}Delivery agreement: 1 day{% plural %}Delivery agreement: {{ counter }} days{% endblocktranslate %}</span>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="academic-card mt-6 px-6 py-16 text-center">
+            <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-university-50 text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">
+                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M8 7V4m8 3V4M5 10h14M7 21h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Zm3-7h4"/>
+                </svg>
+            </span>
+            {% if selected_status %}
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No orders match this filter" %}</h2>
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Try another status or clear the filter to view all purchase orders." %}</p>
+                <a href="{% url 'order_list' %}" class="secondary-button mt-6">{% translate "Clear filter" %}</a>
+            {% elif user.is_supplier %}
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No selected quotes yet" %}</h2>
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Purchase orders will appear here when a project owner selects one of your quotes." %}</p>
+                <a href="{% url 'rfq_list' %}" class="primary-button mt-6">{% translate "Browse opportunities" %}</a>
+            {% elif user.is_staff %}
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No purchase orders are available" %}</h2>
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Awarded procurement requests will appear here for administration review." %}</p>
+                <a href="{% url 'dashboard' %}" class="secondary-button mt-6">{% translate "Back to dashboard" %}</a>
+            {% else %}
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "You do not have purchase orders yet" %}</h2>
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Select a supplier quote to create and track your first purchase order." %}</p>
+                <a href="{% url 'rfq_create' %}" class="primary-button mt-6">{% translate "Create a procurement request" %}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "My quotes" %}{% endblock %}
+
+{% block content %}
+{% now "Ymd" as current_day %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="relative flex flex-col justify-between gap-5 md:flex-row md:items-center">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Supplier proposals center" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% translate "My submitted quotes" %}</h1>
+                <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Review your commercial proposals and update or withdraw pending quotes before their deadlines." %}</p>
+            </div>
+            <a href="{% url 'rfq_list' %}" class="primary-button shrink-0">{% translate "Browse opportunities" %}</a>
+        </div>
+    </header>
+
+    <div class="academic-card mt-6 p-4 sm:p-5">
+        <form method="get" class="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <div class="flex-1">
+                <label for="quote-status-filter" class="text-xs font-black text-slate-500 dark:text-slate-300">{% translate "Filter by quote status" %}</label>
+                <select id="quote-status-filter" name="status" class="form-input">
+                    <option value="">{% translate "All statuses" %}</option>
+                    {% for value, label in statuses %}<option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="primary-button sm:mb-0.5">{% translate "Apply filter" %}</button>
+            {% if selected_status %}<a href="{% url 'my_quotes' %}" class="secondary-button sm:mb-0.5">{% translate "Clear filter" %}</a>{% endif %}
+        </form>
+    </div>
+
+    <div class="mt-6 flex items-center justify-between gap-4">
+        <h2 class="text-lg font-black text-university-800 dark:text-white">{% translate "Quote records" %}</h2>
+        <span class="rounded-full bg-university-100 px-3 py-1 text-xs font-black text-university-700 dark:bg-white/5 dark:text-gold-200">{% blocktranslate count counter=page_obj.paginator.count %}1 quote{% plural %}{{ counter }} quotes{% endblocktranslate %}</span>
+    </div>
+
+    <div class="mt-4 space-y-4">
+        {% for quote in quotes %}
+            {% with quote_deadline=quote.rfq.deadline|date:"Ymd" %}
+            <article class="academic-card overflow-hidden">
+                <div class="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(0,1.3fr)_.55fr_.55fr_auto] lg:items-center">
+                    <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-black text-gold-600 dark:text-gold-300">{{ quote.rfq.category.display_name }}</span>
+                            <span class="rounded-full px-3 py-1 text-[11px] font-black {% if quote.status == 'selected' %}bg-emerald-50 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200{% elif quote.status == 'rejected' or quote.status == 'withdrawn' %}bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300{% else %}bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-200{% endif %}">{{ quote.get_status_display }}</span>
+                        </div>
+                        <h3 class="mt-2 truncate text-lg font-black text-university-800 dark:text-white">{{ quote.rfq.title }}</h3>
+                        <p class="mt-2 text-xs text-slate-400">{% blocktranslate with submitted=quote.created_at|date:"SHORT_DATETIME_FORMAT" %}Submitted {{ submitted }}{% endblocktranslate %}</p>
+                    </div>
+                    <div><span class="block text-xs text-slate-400">{% translate "Total quote" %}</span><strong class="mt-1 block text-lg text-gold-700 dark:text-gold-300">{{ quote.total_amount|floatformat:2 }} <small class="text-xs">USD</small></strong></div>
+                    <div><span class="block text-xs text-slate-400">{% translate "Delivery time" %}</span><strong class="mt-1 block text-university-800 dark:text-white">{% blocktranslate count counter=quote.delivery_days %}1 day{% plural %}{{ counter }} days{% endblocktranslate %}</strong></div>
+                    <div class="flex flex-wrap gap-2 lg:justify-end">
+                        {% if quote.status == "selected" %}
+                            <a href="{% url 'order_list' %}" class="primary-button">{% translate "Open order" %}</a>
+                        {% elif quote.status == "pending" and quote.rfq.status == "open" and quote_deadline >= current_day %}
+                            <a href="{% url 'quote_edit' quote.pk %}" class="secondary-button">{% translate "Edit quote" %}</a>
+                            <details class="relative">
+                                <summary class="secondary-button cursor-pointer list-none text-rose-700 dark:text-rose-300">{% translate "Withdraw" %}</summary>
+                                <div class="absolute end-0 top-full z-20 mt-2 w-64 rounded-2xl border border-rose-100 bg-white p-4 text-sm shadow-academic dark:border-rose-400/20 dark:bg-university-700">
+                                    <p class="leading-6 text-slate-600 dark:text-slate-200">{% translate "Withdraw this quote? This action cannot be undone." %}</p>
+                                    <form method="post" action="{% url 'quote_withdraw' quote.pk %}" class="mt-3">
+                                        {% csrf_token %}
+                                        <button type="submit" class="w-full rounded-xl bg-rose-600 px-4 py-2.5 font-black text-white">{% translate "Confirm withdrawal" %}</button>
+                                    </form>
+                                </div>
+                            </details>
+                        {% elif quote.rfq.status == "open" or quote.rfq.status == "evaluating" %}
+                            <a href="{% url 'rfq_detail' quote.rfq.pk %}" class="secondary-button">{% translate "View request" %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3 border-t border-university-100 bg-university-50/60 px-5 py-3 text-xs text-slate-400 dark:border-white/10 dark:bg-white/[.02] sm:px-6">
+                    <span>{% blocktranslate with deadline=quote.rfq.deadline|date:"SHORT_DATE_FORMAT" %}Request deadline: {{ deadline }}{% endblocktranslate %}</span>
+                    {% if quote.notes %}<span class="max-w-xl truncate">{{ quote.notes }}</span>{% endif %}
+                </div>
+            </article>
+            {% endwith %}
+        {% empty %}
+            <div class="academic-card px-6 py-16 text-center">
+                <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-university-50 text-2xl text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">↗</span>
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% if selected_status %}{% translate "No quotes match this filter" %}{% else %}{% translate "You have not submitted quotes yet" %}{% endif %}</h2>
+                <p class="mx-auto mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Browse open procurement requests and submit a competitive commercial proposal." %}</p>
+                <a href="{% url 'rfq_list' %}" class="primary-button mt-6">{% translate "Browse opportunities" %}</a>
+            </div>
+        {% endfor %}
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

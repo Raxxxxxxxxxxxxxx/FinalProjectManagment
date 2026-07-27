@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Compare quotes" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+        <a href="{% url 'rfq_list' %}" class="transition hover:text-gold-600">{% translate "Procurement requests" %}</a>
+        <svg class="h-3.5 w-3.5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+        </svg>
+        <a href="{% url 'rfq_detail' rfq.pk %}" class="transition hover:text-gold-600">{{ rfq.title }}</a>
+        <svg class="h-3.5 w-3.5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+        </svg>
+        <span>{% translate "Compare quotes" %}</span>
+    </nav>
+
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="absolute -end-10 -top-16 select-none font-serif text-[10rem] font-black leading-none text-university-800/[.035] dark:text-white/[.025]" aria-hidden="true">RFQ</div>
+        <div class="relative flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
+            <div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="rounded-lg bg-gold-50 px-3 py-1 text-xs font-black text-gold-700 dark:bg-gold-500/10 dark:text-gold-200">{{ rfq.category.display_name }}</span>
+                    <span class="text-xs font-bold text-slate-400">{% translate "Request" %} #{{ rfq.pk|stringformat:"04d" }}</span>
+                    <span class="rounded-full bg-university-50 px-3 py-1 text-xs font-black text-university-700 dark:bg-white/5 dark:text-gold-200">{{ rfq.get_status_display }}</span>
+                </div>
+                <h1 class="mt-4 text-3xl font-black leading-tight text-university-800 dark:text-white">{% translate "Compare received quotes" %}</h1>
+                <p class="mt-2 max-w-3xl text-sm leading-7 text-slate-500 dark:text-slate-300">{{ rfq.title }}</p>
+            </div>
+            <a href="{% url 'rfq_detail' rfq.pk %}" class="secondary-button shrink-0">
+                <svg class="me-2 h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+                </svg>
+                {% translate "Back to request" %}
+            </a>
+        </div>
+    </header>
+
+    {% if quotes %}
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div class="stat-card">
+                <span>{% translate "Received quotes" %}</span>
+                <strong>{{ quotes|length }}</strong>
+            </div>
+            <div class="stat-card">
+                <span>{% translate "Lowest quote" %}</span>
+                <strong class="text-2xl">{{ lowest_quote.total_amount|floatformat:2 }} <small class="text-sm font-black text-slate-400">USD</small></strong>
+                <p class="mt-2 truncate text-xs text-slate-400">{{ lowest_quote.supplier.company.trade_name|default:lowest_quote.supplier.username }}</p>
+            </div>
+            <div class="stat-card">
+                <span>{% translate "Fastest delivery" %}</span>
+                <strong class="text-2xl">{% blocktranslate count counter=fastest_quote.delivery_days %}1 day{% plural %}{{ counter }} days{% endblocktranslate %}</strong>
+                <p class="mt-2 truncate text-xs text-slate-400">{{ fastest_quote.supplier.company.trade_name|default:fastest_quote.supplier.username }}</p>
+            </div>
+            <div class="stat-card">
+                <span>{% translate "Average quote value" %}</span>
+                <strong class="text-2xl">{{ average_amount|floatformat:2 }} <small class="text-sm font-black text-slate-400">USD</small></strong>
+            </div>
+        </div>
+
+        {% if user.is_staff and user != rfq.owner %}
+            <div class="mt-6 flex items-start gap-3 rounded-2xl border border-gold-200 bg-gold-50 p-4 text-sm leading-7 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                <svg class="mt-1 h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v4m0 4h.01M10.3 3.7 2.7 17a2 2 0 0 0 1.74 3h15.12a2 2 0 0 0 1.74-3L13.7 3.7a2 2 0 0 0-3.4 0Z"/>
+                </svg>
+                <div>
+                    <strong class="block">{% translate "Administration review mode" %}</strong>
+                    <span>{% translate "Only the project owner can select the winning quote." %}</span>
+                </div>
+            </div>
+        {% endif %}
+
+        <section class="academic-card mt-6 overflow-hidden" aria-labelledby="comparison-heading">
+            <div class="border-b border-university-100 px-6 py-5 dark:border-white/10">
+                <h2 id="comparison-heading" class="text-xl font-black text-university-800 dark:text-white">{% translate "Quote comparison" %}</h2>
+                <p class="mt-1 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Compare price, delivery time, and supplier details before making your selection." %}</p>
+            </div>
+
+            <div class="grid gap-5 p-5 lg:grid-cols-2 xl:grid-cols-3">
+                {% for quote in quotes %}
+                    <article class="relative flex h-full flex-col overflow-hidden rounded-2xl border {% if quote.status == 'selected' %}border-gold-400 bg-gold-50/50 dark:bg-gold-500/10{% else %}border-university-100 bg-white dark:border-white/10 dark:bg-white/[.025]{% endif %} p-5">
+                        {% if quote.pk == lowest_quote.pk or quote.pk == fastest_quote.pk or quote.pk == recommended_quote.pk %}
+                            <div class="mb-4 flex flex-wrap gap-2">
+                                {% if quote.pk == recommended_quote.pk %}
+                                    <span class="rounded-full bg-gold-500 px-3 py-1 text-[11px] font-black text-university-900">{% translate "Highest decision-support score" %}</span>
+                                {% endif %}
+                                {% if quote.pk == lowest_quote.pk %}
+                                    <span class="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200">{% translate "Lowest price" %}</span>
+                                {% endif %}
+                                {% if quote.pk == fastest_quote.pk %}
+                                    <span class="rounded-full bg-university-50 px-3 py-1 text-[11px] font-black text-university-700 dark:bg-white/5 dark:text-university-100">{% translate "Fastest delivery" %}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-slate-400">{% translate "Supplier" %}</p>
+                                <h3 class="mt-1 truncate text-lg font-black text-university-800 dark:text-white"><a href="{% url 'supplier_profile' quote.supplier.pk %}" class="hover:text-gold-600">{{ quote.supplier.company.trade_name|default:quote.supplier.username }}</a></h3>
+                                {% if quote.is_eligible %}
+                                    <span class="mt-2 inline-flex items-center gap-1 text-xs font-black text-emerald-700 dark:text-emerald-300">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.5 12.5 2 2 5-5M12 3l7 3v5c0 4.5-2.8 7.8-7 10-4.2-2.2-7-5.5-7-10V6l7-3Z"/></svg>
+                                        {% translate "Verified supplier" %}
+                                    </span>
+                                {% else %}
+                                    <span class="mt-2 inline-flex items-center gap-1 text-xs font-black text-rose-700 dark:text-rose-300">{% translate "Supplier verification is not currently valid" %}</span>
+                                {% endif %}
+                            </div>
+                            <span class="shrink-0 rounded-full px-3 py-1 text-[11px] font-black {% if quote.status == 'selected' %}bg-gold-500 text-university-900{% elif quote.status == 'rejected' or quote.status == 'withdrawn' %}bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300{% else %}bg-university-50 text-university-700 dark:bg-white/5 dark:text-gold-200{% endif %}">{{ quote.get_status_display }}</span>
+                        </div>
+
+                        <dl class="mt-5 grid grid-cols-2 gap-3">
+                            <div class="rounded-xl bg-university-50 p-4 dark:bg-white/5">
+                                <dt class="text-xs text-slate-400">{% translate "Total quote" %}</dt>
+                                <dd class="mt-1 text-xl font-black text-gold-700 dark:text-gold-300">{{ quote.total_amount|floatformat:2 }} <small class="text-xs">USD</small></dd>
+                            </div>
+                            <div class="rounded-xl bg-university-50 p-4 dark:bg-white/5">
+                                <dt class="text-xs text-slate-400">{% translate "Delivery time" %}</dt>
+                                <dd class="mt-1 font-black text-university-800 dark:text-white">{% blocktranslate count counter=quote.delivery_days %}1 day{% plural %}{{ counter }} days{% endblocktranslate %}</dd>
+                            </div>
+                            <div class="rounded-xl bg-university-50 p-4 dark:bg-white/5">
+                                <dt class="text-xs text-slate-400">{% translate "Supplier rating" %}</dt>
+                                <dd class="mt-1 font-black text-university-800 dark:text-white">{% if quote.supplier_rating %}{{ quote.supplier_rating|floatformat:1 }}/5 <small class="text-xs text-slate-400">({{ quote.supplier_review_count }})</small>{% else %}{% translate "No ratings yet" %}{% endif %}</dd>
+                            </div>
+                            <div class="rounded-xl bg-gold-50 p-4 dark:bg-gold-500/10">
+                                <dt class="text-xs text-gold-700 dark:text-gold-200">{% translate "Decision-support score" %}</dt>
+                                <dd class="mt-1 text-xl font-black text-gold-700 dark:text-gold-200">{{ quote.decision_score|floatformat:1 }}/100</dd>
+                            </div>
+                        </dl>
+
+                        <div class="mt-4 flex-1 rounded-xl border border-university-100 p-4 dark:border-white/10">
+                            <p class="text-xs font-black text-slate-400">{% translate "Supplier notes" %}</p>
+                            <p class="mt-2 whitespace-pre-line text-sm leading-7 text-slate-600 dark:text-slate-300">{{ quote.notes|default:_("No notes were provided.") }}</p>
+                        </div>
+
+                        <p class="mt-4 text-xs text-slate-400">
+                            {% blocktranslate with submitted=quote.created_at|date:"SHORT_DATE_FORMAT" %}Submitted on {{ submitted }}{% endblocktranslate %}
+                        </p>
+
+                        {% if quote.status == "selected" and quote.purchase_order %}
+                            <a href="{% url 'order_detail' quote.purchase_order.pk %}" class="primary-button mt-5 w-full">{% translate "Open purchase order" %}</a>
+                        {% else %}
+                            {% if user == rfq.owner %}
+                                {% if quote.status == "pending" %}
+                                    {% if not quote.is_eligible %}
+                                        <p class="mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3 text-center text-xs font-bold leading-6 text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-200">{% translate "This quote cannot be selected until the supplier account is active and verified again." %}</p>
+                                    {% elif rfq.status == "open" or rfq.status == "evaluating" %}
+                                        <details class="mt-5 rounded-xl border border-gold-200 bg-gold-50 p-3 dark:border-gold-500/20 dark:bg-gold-500/10">
+                                            <summary class="cursor-pointer list-none text-center text-sm font-black text-gold-700 dark:text-gold-200">{% translate "Select this quote" %}</summary>
+                                            <p class="mt-3 text-xs leading-6 text-gold-700 dark:text-gold-100">{% translate "Selecting this quote creates a purchase order and marks the remaining quotes as not selected." %}</p>
+                                            <form method="post" action="{% url 'quote_award' quote.pk %}" class="mt-3">
+                                                {% csrf_token %}
+                                                <button type="submit" class="primary-button w-full">{% translate "Confirm selection" %}</button>
+                                            </form>
+                                        </details>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="mt-6 rounded-2xl border border-university-100 bg-white p-5 text-sm leading-7 text-slate-500 dark:border-white/10 dark:bg-university-700 dark:text-slate-300">
+            <strong class="text-university-800 dark:text-white">{% translate "Transparent selection record" %}</strong>
+            <span class="mt-1 block">{% translate "The selected price and delivery time are copied to the purchase order, and every workflow change is timestamped." %}</span>
+            <span class="mt-2 block text-xs">{% translate "The advisory score uses transparent weights: price 50%, delivery time 30%, and supplier rating 20%. An unrated supplier receives a neutral 3/5 baseline. The score supports — but never replaces — the project owner's decision." %}</span>
+        </div>
+    {% else %}
+        <div class="academic-card mt-6 px-6 py-16 text-center">
+            <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-university-50 text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">
+                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7 8h10M7 12h6m-8 8h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z"/>
+                </svg>
+            </span>
+            <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No quotes have arrived yet" %}</h2>
+            <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "The comparison workspace will become available as soon as a supplier submits a quote." %}</p>
+            <a href="{% url 'rfq_detail' rfq.pk %}" class="secondary-button mt-6">{% translate "Back to request" %}</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

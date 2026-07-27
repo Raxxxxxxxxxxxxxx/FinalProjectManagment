@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n marketplace_extras %}
+
+{% block title %}{{ supplier_profile.company.trade_name }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+        <a href="{% url 'product_list' %}" class="transition hover:text-gold-600">{% translate "Supplier catalog" %}</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ supplier_profile.company.trade_name }}</span>
+    </nav>
+
+    <header class="relative overflow-hidden rounded-3xl bg-university-800 px-6 py-9 text-white shadow-academic dark:border dark:border-gold-500/20 dark:bg-university-900 sm:px-9">
+        <div class="academic-lines absolute inset-0 opacity-10" aria-hidden="true"></div>
+        <div class="absolute -end-12 -top-20 select-none font-serif text-[13rem] font-black leading-none text-white/[.035]" aria-hidden="true">SU</div>
+        <div class="relative flex flex-col justify-between gap-7 md:flex-row md:items-center">
+            <div class="flex min-w-0 items-center gap-5">
+                <span class="grid h-20 w-20 shrink-0 place-items-center rounded-3xl border border-gold-300/30 bg-white/10 text-3xl font-black text-gold-300" aria-hidden="true">{{ supplier_profile.company.trade_name|slice:":1"|upper }}</span>
+                <div class="min-w-0">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-200"><span aria-hidden="true">✓</span>{% translate "Verified supplier" %}</span>
+                    <h1 class="mt-3 truncate text-3xl font-black sm:text-4xl">{{ supplier_profile.company.trade_name }}</h1>
+                    <p class="mt-2 text-sm text-slate-300">{{ supplier_profile.company.business_type|default:_("Products and services supplier") }}{% if supplier_profile.company.city %} · {{ supplier_profile.company.city }}{% endif %}</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center"><span class="block text-xs text-slate-300">{% translate "Average rating" %}</span><strong class="mt-1 block text-2xl text-gold-300">{% if rating %}{{ rating|floatformat:1 }}/5{% else %}—{% endif %}</strong></div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center"><span class="block text-xs text-slate-300">{% translate "Completed orders" %}</span><strong class="mt-1 block text-2xl text-gold-300">{{ completed_orders }}</strong></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mt-7 grid gap-7 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside class="space-y-5">
+            <article class="academic-card p-6">
+                <h2 class="font-black text-university-800 dark:text-white">{% translate "About the supplier" %}</h2>
+                <p class="mt-4 whitespace-pre-line text-sm leading-8 text-slate-500 dark:text-slate-300">{{ supplier_profile.company.description|default:_("The supplier has not added a public description yet.") }}</p>
+                <dl class="mt-5 space-y-4 border-t border-university-100 pt-5 text-sm dark:border-white/10">
+                    <div class="flex justify-between gap-4"><dt class="text-slate-400">{% translate "Business type" %}</dt><dd class="text-end font-bold text-university-800 dark:text-white">{{ supplier_profile.company.business_type|default:"—" }}</dd></div>
+                    <div class="flex justify-between gap-4"><dt class="text-slate-400">{% translate "City" %}</dt><dd class="text-end font-bold text-university-800 dark:text-white">{{ supplier_profile.company.city|default:"—" }}</dd></div>
+                </dl>
+            </article>
+            <div class="rounded-2xl border border-gold-200 bg-gold-50 p-5 text-sm leading-7 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                <strong class="block">{% translate "Verification note" %}</strong>
+                <span class="mt-1 block">{% translate "Verification confirms that the platform administration reviewed the supplier's organization record. It does not replace evaluating each commercial quote." %}</span>
+            </div>
+        </aside>
+
+        <article class="academic-card overflow-hidden">
+            <div class="flex flex-col justify-between gap-4 border-b border-university-100 px-6 py-5 dark:border-white/10 sm:flex-row sm:items-center">
+                <div><h2 class="text-xl font-black text-university-800 dark:text-white">{% translate "Products and services" %}</h2><p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "Reference offerings currently published by this supplier" %}</p></div>
+                <a href="{% url 'product_list' %}" class="text-sm font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "Browse full catalog" %}</a>
+            </div>
+            <div class="grid gap-4 p-5 sm:grid-cols-2">
+                {% for product in products %}
+                    <a href="{% url 'product_detail' product.pk %}" class="group rounded-2xl border border-university-100 p-5 transition hover:-translate-y-0.5 hover:border-gold-300 hover:shadow-soft dark:border-white/10">
+                        <div class="flex items-start justify-between gap-3"><span class="rounded-lg bg-gold-50 px-2.5 py-1 text-[11px] font-black text-gold-700 dark:bg-gold-500/10 dark:text-gold-200">{{ product.category.display_name }}</span>{% if product.sku %}<span class="font-mono text-[10px] text-slate-400" dir="ltr">{{ product.sku }}</span>{% endif %}</div>
+                        <h3 class="mt-4 font-black text-university-800 transition group-hover:text-gold-700 dark:text-white dark:group-hover:text-gold-300">{{ product.name }}</h3>
+                        <p class="mt-2 line-clamp-2 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ product.description|default:_("No description was provided.") }}</p>
+                        <div class="mt-4 flex justify-between border-t border-university-100 pt-3 text-xs dark:border-white/10"><span class="text-slate-400">{% translate "Reference price" %}</span><strong class="text-gold-700 dark:text-gold-300">{% if product.price %}{{ product.price|floatformat:2 }} USD{% else %}{% translate "On request" %}{% endif %}</strong></div>
+                    </a>
+                {% empty %}
+                    <div class="rounded-2xl border border-dashed border-university-200 p-10 text-center text-sm text-slate-500 dark:border-white/15 dark:text-slate-300 sm:col-span-2">{% translate "This supplier has not published catalog items yet." %}</div>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Edit organization profile" %}{% endblock %}
+
+{% block content %}
+<section class="relative isolate overflow-hidden px-4 py-12 sm:px-6 lg:py-16">
+    <div class="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-35" aria-hidden="true"></div>
+    <div class="mx-auto max-w-3xl">
+        <nav class="mb-6 flex items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+            <a href="{% url 'profile' %}" class="transition hover:text-gold-600">{% translate "Organization profile" %}</a>
+            <span aria-hidden="true">/</span>
+            <span>{% translate "Edit" %}</span>
+        </nav>
+
+        <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+            <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+            <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Organization identity" %}</p>
+            <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% translate "Edit organization profile" %}</h1>
+            <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Keep your organization information accurate so procurement partners can evaluate your account with confidence." %}</p>
+        </header>
+
+        <form method="post" enctype="multipart/form-data" class="academic-card mt-6 p-6 sm:p-8">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="mb-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-bold text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-200" role="alert">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="grid gap-5 sm:grid-cols-2">
+                {% for field in form %}
+                    <div class="{% if field.name == 'description' or field.name == 'registration_document' %}sm:col-span-2{% endif %}">
+                        <label for="{{ field.id_for_label }}" class="text-sm font-black text-university-800 dark:text-white">
+                            {{ field.label }}
+                            {% if field.field.required %}<span class="text-rose-600" aria-hidden="true">*</span>{% endif %}
+                        </label>
+                        {{ field }}
+                        {% if field.help_text %}<p class="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ field.help_text }}</p>{% endif %}
+                        {% for error in field.errors %}<p class="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300" role="alert">{{ error }}</p>{% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-7 rounded-2xl border border-gold-200 bg-gold-50 p-5 text-sm leading-7 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                <strong class="block">{% translate "Document privacy" %}</strong>
+                <span class="mt-1 block">{% translate "Registration files are stored privately and can be downloaded only by the account owner or platform administration." %}</span>
+            </div>
+
+            <div class="mt-7 flex flex-col-reverse gap-3 border-t border-university-100 pt-6 dark:border-white/10 sm:flex-row sm:justify-end">
+                <a href="{% url 'profile' %}" class="secondary-button">{% translate "Cancel" %}</a>
+                <button type="submit" class="primary-button px-8">{% translate "Save profile" %}</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

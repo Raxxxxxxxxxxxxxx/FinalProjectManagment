@@ -1,0 +1,197 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#082c58">
+    <meta name="description" content="{% translate 'A professional procurement platform connecting project owners with qualified suppliers' %}">
+    <title>{% block title %}{% translate "Home" %}{% endblock %} | {% translate "Sham University Procurement Platform" %}</title>
+
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem("sham-theme");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark");
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="min-h-screen bg-university-50 text-slate-900 transition-colors duration-300 dark:bg-university-800 dark:text-white">
+    <a href="#main-content" class="skip-link">{% translate "Skip to main content" %}</a>
+    <div class="h-1 bg-gradient-to-l from-gold-400 via-gold-500 to-gold-700" aria-hidden="true"></div>
+
+    <header class="site-header no-print sticky top-0 z-50 border-b border-university-100/80 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-university-800/95">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+            <a href="{% url 'home' %}" class="flex min-w-0 items-center gap-3" aria-label="{% translate 'Sham University Procurement Platform — Home' %}">
+                <span class="university-logo-frame">
+                    <img src="{% static 'images/university-logo-placeholder.svg' %}" alt="{% translate 'Sham University logo' %}" class="h-full w-full object-contain">
+                </span>
+                <span class="min-w-0">
+                    <span class="block truncate text-[10px] font-bold tracking-[.14em] text-gold-600 dark:text-gold-300">{% translate "SHAM UNIVERSITY" %}</span>
+                    <strong class="block truncate text-base font-black text-university-800 dark:text-white sm:text-lg">{% translate "Procurement Platform" %}</strong>
+                    <small class="hidden text-[11px] text-slate-500 dark:text-slate-300 2xl:block">{% translate "Graduation Project · Digital Business Solutions" %}</small>
+                </span>
+            </a>
+
+            <button id="menuButton" type="button" class="rounded-xl border border-university-100 p-2.5 text-university-700 dark:border-white/10 dark:text-white xl:hidden" aria-label="{% translate 'Open navigation menu' %}" aria-controls="mobileMenu" aria-expanded="false">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+
+            <nav id="mainMenu" class="hidden items-center gap-3 xl:flex 2xl:gap-5" aria-label="{% translate 'Main navigation' %}">
+                <a href="{% url 'rfq_list' %}" class="nav-link">{% translate "Procurement requests" %}</a>
+                <a href="{% url 'product_list' %}" class="nav-link">{% translate "Supplier catalog" %}</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="nav-link">{% translate "Dashboard" %}</a>
+                    <a href="{% url 'order_list' %}" class="nav-link">{% translate "Purchase orders" %}</a>
+                    {% if user.is_owner %}
+                        <a href="{% url 'rfq_create' %}" class="primary-button whitespace-nowrap px-4">{% translate "Request a quote" %}</a>
+                    {% endif %}
+                    <a href="{% url 'notification_list' %}" class="icon-button relative" title="{% translate 'Notifications' %}" aria-label="{% translate 'Notifications' %}">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17H9m9-5a6 6 0 1 0-12 0c0 3-1.5 4-1.5 4h15S18 15 18 12ZM10 20h4"/></svg>
+                        {% if unread_notification_count %}
+                            <span class="absolute -end-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-gold-500 px-1 text-[10px] font-black text-university-900"><span class="sr-only">{% translate "Unread notifications" %}: </span>{{ unread_notification_count }}</span>
+                        {% endif %}
+                    </a>
+
+                    <details class="account-menu relative">
+                        <summary class="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-xl border border-university-100 bg-university-50 px-3 text-start dark:border-white/10 dark:bg-white/5">
+                            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-university-700 text-xs font-black text-white dark:bg-gold-500 dark:text-university-900" aria-hidden="true">{{ user.company.trade_name|default:user.username|slice:":1"|upper }}</span>
+                            <span class="max-w-24">
+                                <strong class="block truncate text-xs text-university-800 dark:text-white">{{ user.company.trade_name|default:user.username }}</strong>
+                                <small class="block truncate text-[10px] text-slate-400">{{ user.get_role_display }}</small>
+                            </span>
+                            <svg class="h-4 w-4 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+                        </summary>
+                        <div class="absolute end-0 top-full mt-2 w-60 overflow-hidden rounded-2xl border border-university-100 bg-white p-2 text-sm font-bold shadow-academic dark:border-white/10 dark:bg-university-700">
+                            <a href="{% url 'profile' %}" class="account-menu-link">{% translate "Organization profile" %}</a>
+                            <a href="{% url 'reports' %}" class="account-menu-link">{% translate "Reports" %}</a>
+                            {% if user.is_supplier %}
+                                <a href="{% url 'my_quotes' %}" class="account-menu-link">{% translate "My quotes" %}</a>
+                                <a href="{% url 'my_products' %}" class="account-menu-link">{% translate "My catalog" %}</a>
+                            {% endif %}
+                            {% if user.is_staff %}<a href="{% url 'admin:index' %}" class="account-menu-link">{% translate "Django administration" %}</a>{% endif %}
+                            <form method="post" action="{% url 'logout' %}" class="mt-1 border-t border-university-100 pt-1 dark:border-white/10">
+                                {% csrf_token %}
+                                <button class="account-menu-link w-full text-start text-rose-600 dark:text-rose-300">{% translate "Log out" %}</button>
+                            </form>
+                        </div>
+                    </details>
+                {% else %}
+                    <a href="{% url 'login' %}" class="font-black text-university-700 dark:text-gold-300">{% translate "Log in" %}</a>
+                    <a href="{% url 'register' %}" class="primary-button">{% translate "Get started" %}</a>
+                {% endif %}
+
+                <div class="flex items-center gap-2 border-s border-university-100 ps-4 dark:border-white/10">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        <input name="language" type="hidden" value="{% if LANGUAGE_CODE == 'ar' %}en{% else %}ar{% endif %}">
+                        <button type="submit" class="icon-button min-w-11 px-3 text-xs font-black" title="{% translate 'Change language' %}" aria-label="{% translate 'Change language' %}">
+                            {% if LANGUAGE_CODE == "ar" %}EN{% else %}عربي{% endif %}
+                        </button>
+                    </form>
+                    <button id="themeToggle" type="button" class="icon-button" aria-label="{% translate 'Switch color theme' %}" title="{% translate 'Switch color theme' %}">
+                        <svg class="theme-sun h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36-.7-.7M6.34 6.34l-.7-.7m12.72 0-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
+                        <svg class="theme-moon hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.35 15.35A9 9 0 0 1 8.65 3.65a9 9 0 1 0 11.7 11.7Z"/></svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div id="mobileMenu" class="hidden max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-university-100 bg-white px-4 py-5 dark:border-white/10 dark:bg-university-800 xl:hidden">
+            <nav class="mx-auto flex max-w-7xl flex-col gap-4 font-bold" aria-label="{% translate 'Mobile navigation' %}">
+                <a href="{% url 'home' %}">{% translate "Home" %}</a>
+                <a href="{% url 'rfq_list' %}">{% translate "Procurement requests" %}</a>
+                <a href="{% url 'product_list' %}">{% translate "Supplier catalog" %}</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="flex items-center gap-3 rounded-2xl bg-university-50 p-3 dark:bg-white/5">
+                        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-university-700 text-sm font-black text-white dark:bg-gold-500 dark:text-university-900" aria-hidden="true">{{ user.company.trade_name|default:user.username|slice:":1"|upper }}</span>
+                        <span class="min-w-0"><strong class="block truncate text-sm text-university-800 dark:text-white">{{ user.company.trade_name|default:user.username }}</strong><small class="block truncate text-xs font-normal text-slate-400">{{ user.get_role_display }}</small></span>
+                    </a>
+                    <a href="{% url 'dashboard' %}">{% translate "Dashboard" %}</a>
+                    <a href="{% url 'order_list' %}">{% translate "Purchase orders" %}</a>
+                    <a href="{% url 'reports' %}">{% translate "Reports" %}</a>
+                    <a href="{% url 'notification_list' %}" class="flex items-center justify-between"><span>{% translate "Notifications" %}</span>{% if unread_notification_count %}<span class="rounded-full bg-gold-500 px-2 py-0.5 text-xs text-university-900">{{ unread_notification_count }}</span>{% endif %}</a>
+                    {% if user.is_owner %}<a href="{% url 'rfq_create' %}">{% translate "New request for quotation" %}</a>{% endif %}
+                    {% if user.is_supplier %}
+                        <a href="{% url 'my_quotes' %}">{% translate "My quotes" %}</a>
+                        <a href="{% url 'my_products' %}">{% translate "My catalog" %}</a>
+                    {% endif %}
+                    {% if user.is_staff %}<a href="{% url 'admin:index' %}">{% translate "Django administration" %}</a>{% endif %}
+                    <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>{% translate "Log out" %}</button></form>
+                {% else %}
+                    <a href="{% url 'login' %}">{% translate "Log in" %}</a>
+                    <a href="{% url 'register' %}">{% translate "Create account" %}</a>
+                {% endif %}
+                <div class="mt-2 flex gap-2 border-t border-university-100 pt-4 dark:border-white/10">
+                    <form action="{% url 'set_language' %}" method="post" class="flex-1">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        <input name="language" type="hidden" value="{% if LANGUAGE_CODE == 'ar' %}en{% else %}ar{% endif %}">
+                        <button type="submit" class="secondary-button w-full">{% if LANGUAGE_CODE == "ar" %}English{% else %}العربية{% endif %}</button>
+                    </form>
+                    <button type="button" class="theme-toggle-mobile secondary-button flex-1">{% translate "Color theme" %}</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    {% if messages %}
+        <div class="no-print fixed left-1/2 top-24 z-[60] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 space-y-2" aria-live="polite" aria-atomic="false">
+            {% for message in messages %}
+                <div class="alert flex items-center justify-between rounded-2xl border border-gold-200 bg-white px-5 py-4 text-sm font-bold text-university-800 shadow-academic dark:border-gold-500/30 dark:bg-university-700 dark:text-white" role="{% if message.tags == 'error' %}alert{% else %}status{% endif %}">
+                    <span>{{ message }}</span>
+                    <button type="button" class="text-xl text-slate-400" onclick="this.parentElement.remove()" aria-label="{% translate 'Close' %}">×</button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
+
+    <footer class="no-print relative overflow-hidden border-t border-university-100 bg-white dark:border-white/10 dark:bg-university-900">
+        <div class="academic-watermark" aria-hidden="true">SU</div>
+        <div class="relative mx-auto grid max-w-7xl gap-9 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_.8fr_.8fr] lg:px-8">
+            <div class="flex items-start gap-4">
+                <span class="university-logo-frame h-16 w-16 shrink-0">
+                    <img src="{% static 'images/university-logo-placeholder.svg' %}" alt="" class="h-full w-full object-contain">
+                </span>
+                <div>
+                    <h3 class="font-black text-university-800 dark:text-white">{% translate "Sham University Procurement Platform" %}</h3>
+                    <p class="mt-3 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "An academic digital platform that manages the procurement cycle from identifying needs through delivery and evaluation." %}</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-title">{% translate "Quick links" %}</h4>
+                <div class="mt-4 flex flex-col gap-2.5 text-sm text-slate-500 dark:text-slate-300">
+                    <a href="{% url 'rfq_list' %}">{% translate "Browse requests" %}</a>
+                    <a href="{% url 'product_list' %}">{% translate "Supplier catalog" %}</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}">{% translate "Student project portal" %}</a>
+                        <a href="{% url 'profile' %}">{% translate "Organization profile" %}</a>
+                    {% else %}
+                        <a href="{% url 'register' %}?role=supplier">{% translate "Register as a supplier" %}</a>
+                        <a href="{% url 'login' %}">{% translate "Student project portal" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-title">{% translate "Academic standards" %}</h4>
+                <p class="mt-4 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Reliable workflows, data protection, accessibility, and a clear audit trail for every procurement step." %}</p>
+            </div>
+        </div>
+        <div class="relative border-t border-university-100 py-5 text-center text-xs text-slate-400 dark:border-white/10">
+            {% now "Y" as current_year %}
+            {% blocktranslate with year=current_year %}© {{ year }} Sham University · Graduation Project{% endblocktranslate %}
+        </div>
+    </footer>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

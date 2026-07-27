@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Log in" %}{% endblock %}
+{% block content %}
+<section class="relative isolate overflow-hidden px-4 py-16 sm:px-6 lg:py-20">
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div class="absolute start-1/2 top-8 h-56 w-56 -translate-x-1/2 rounded-full bg-gold-200/35 blur-3xl dark:bg-gold-500/10"></div>
+        <div class="hero-grid absolute inset-0 opacity-45"></div>
+    </div>
+
+    <div class="academic-card mx-auto max-w-md overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-university-600 via-gold-500 to-university-800"></div>
+        <div class="p-7 sm:p-9">
+            <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-gold-200 bg-gold-50 text-university-700 shadow-sm dark:border-gold-500/30 dark:bg-gold-500/10 dark:text-gold-300" aria-hidden="true">
+                <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3 3 7.5 12 12l9-4.5L12 3Zm-6 7v5.5c2.7 2 9.3 2 12 0V10M4 19h16"/>
+                </svg>
+            </div>
+            <div class="mt-5 text-center">
+                <span class="text-xs font-black uppercase tracking-[.18em] text-gold-600 dark:text-gold-300">{% translate "Secure academic workspace" %}</span>
+                <h1 class="mt-2 text-3xl font-black text-ink dark:text-white">{% translate "Welcome back" %}</h1>
+                <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Log in to continue managing your procurement activity." %}</p>
+            </div>
+
+        <form method="post" class="mt-8 space-y-5">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-700 dark:border-red-400/20 dark:bg-red-950/30 dark:text-red-200">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="text-sm font-black text-ink dark:text-white">{% translate "Username" %}</label>
+                <input type="text" name="username" autocomplete="username" autofocus required id="{{ form.username.id_for_label }}" class="form-input">
+            </div>
+            <div>
+                <label for="{{ form.password.id_for_label }}" class="text-sm font-black text-ink dark:text-white">{% translate "Password" %}</label>
+                <input type="password" name="password" autocomplete="current-password" required id="{{ form.password.id_for_label }}" class="form-input">
+            </div>
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+            <button type="submit" class="primary-button w-full py-3.5">{% translate "Log in" %}</button>
+        </form>
+
+            <p class="mt-7 border-t border-university-100 pt-6 text-center text-sm text-slate-500 dark:border-white/10 dark:text-slate-300">
+                {% translate "New to the platform?" %}
+                <a href="{% url 'register' %}" class="font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "Create an account" %}</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

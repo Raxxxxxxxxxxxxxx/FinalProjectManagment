@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n marketplace_extras %}
+
+{% block title %}{% translate "Supplier catalog" %}{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden border-b border-university-100 bg-white dark:border-white/10 dark:bg-university-800">
+    <div class="hero-grid absolute inset-0 opacity-50" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2 text-sm font-black text-gold-600 dark:text-gold-300"><span class="h-px w-8 bg-gold-500" aria-hidden="true"></span>{% translate "Verified supplier network" %}</div>
+        <h1 class="mt-3 text-4xl font-black text-university-800 dark:text-white">{% translate "Products and services catalog" %}</h1>
+        <p class="mt-3 max-w-2xl leading-7 text-slate-500 dark:text-slate-300">{% translate "Explore reference offerings published by verified suppliers before creating a procurement request." %}</p>
+
+        <form method="get" class="academic-card mt-8 grid gap-3 p-3 md:grid-cols-[1fr_260px_auto]">
+            <label class="sr-only" for="catalog-search">{% translate "Search catalog" %}</label>
+            <input id="catalog-search" name="q" value="{{ query }}" placeholder="{% translate 'Search by product, service, SKU, or supplier...' %}" class="rounded-xl border border-university-100 bg-white px-4 py-3 text-slate-900 outline-none focus:border-gold-500 focus:ring-2 focus:ring-gold-100 dark:border-white/10 dark:bg-university-700 dark:text-white">
+            <label class="sr-only" for="catalog-category">{% translate "Category" %}</label>
+            <select id="catalog-category" name="category" class="rounded-xl border border-university-100 bg-white px-4 py-3 text-slate-900 outline-none focus:border-gold-500 focus:ring-2 focus:ring-gold-100 dark:border-white/10 dark:bg-university-700 dark:text-white">
+                <option value="">{% translate "All categories" %}</option>
+                {% for category in categories %}<option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.display_name }}</option>{% endfor %}
+            </select>
+            <button type="submit" class="primary-button px-7">{% translate "Search" %}</button>
+        </form>
+    </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <p class="text-sm font-bold text-slate-500 dark:text-slate-300">
+            {% blocktranslate count counter=page_obj.paginator.count %}1 catalog item{% plural %}{{ counter }} catalog items{% endblocktranslate %}
+        </p>
+        {% if user.is_supplier %}<a href="{% url 'my_products' %}" class="text-sm font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "Manage my catalog" %}</a>{% endif %}
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {% for product in products %}
+            <article class="academic-card group flex h-full flex-col overflow-hidden">
+                <div class="relative border-b border-university-100 bg-gradient-to-br from-university-50 to-gold-50 p-6 dark:border-white/10 dark:from-white/[.04] dark:to-gold-500/10">
+                    <div class="flex items-start justify-between gap-3">
+                        <span class="rounded-lg bg-white px-3 py-1 text-xs font-black text-gold-700 shadow-sm dark:bg-white/10 dark:text-gold-200">{{ product.category.display_name }}</span>
+                        {% if product.sku %}<span class="font-mono text-[11px] text-slate-400" dir="ltr">{{ product.sku }}</span>{% endif %}
+                    </div>
+                    <div class="mt-8 grid h-14 w-14 place-items-center rounded-2xl bg-university-800 text-2xl font-black text-white shadow-soft transition group-hover:-translate-y-1 dark:bg-gold-500 dark:text-university-900" aria-hidden="true">{{ product.name|slice:":1"|upper }}</div>
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                    <h2 class="text-xl font-black leading-8 text-university-800 dark:text-white"><a href="{% url 'product_detail' product.pk %}" class="after:absolute">{{ product.name }}</a></h2>
+                    <p class="mt-2 line-clamp-2 min-h-14 text-sm leading-7 text-slate-500 dark:text-slate-300">{{ product.description|default:_("No description was provided.") }}</p>
+                    <div class="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-university-50 p-4 dark:bg-white/5">
+                        <div><span class="block text-[11px] text-slate-400">{% translate "Reference price" %}</span><strong class="mt-1 block text-gold-700 dark:text-gold-300">{% if product.price %}{{ product.price|floatformat:2 }} <small>USD</small>{% else %}{% translate "On request" %}{% endif %}</strong></div>
+                        <div><span class="block text-[11px] text-slate-400">{% translate "Minimum order" %}</span><strong class="mt-1 block text-university-800 dark:text-white">{{ product.minimum_order_quantity }} {{ product.unit|display_unit }}</strong></div>
+                    </div>
+                    <div class="mt-5 flex items-center justify-between gap-3 border-t border-university-100 pt-4 dark:border-white/10">
+                        <a href="{% url 'supplier_profile' product.supplier.pk %}" class="min-w-0 truncate text-xs font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{{ product.supplier.company.trade_name }}</a>
+                        <a href="{% url 'product_detail' product.pk %}" class="shrink-0 text-xs font-black text-university-700 dark:text-gold-300">{% translate "View details" %}</a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="academic-card py-16 text-center sm:col-span-2 xl:col-span-3">
+                <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-university-50 text-2xl text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">⌕</span>
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No catalog items match your search" %}</h2>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-300">{% translate "Try a different search phrase or category." %}</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

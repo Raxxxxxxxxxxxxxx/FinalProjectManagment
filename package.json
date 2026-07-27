@@ -1,0 +1,12 @@
+{
+  "name": "sham-university-procurement-platform",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "css:build": "tailwindcss -i ./assets/css/tailwind-input.css -o ./static/css/tailwind.css --minify",
+    "css:watch": "tailwindcss -i ./assets/css/tailwind-input.css -o ./static/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

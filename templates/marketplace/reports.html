@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Reports" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="relative overflow-hidden rounded-3xl bg-university-800 px-6 py-8 text-white shadow-academic dark:border dark:border-gold-500/20 dark:bg-university-900 sm:px-9">
+        <div class="academic-lines absolute inset-0 opacity-10" aria-hidden="true"></div>
+        <div class="absolute -end-12 -top-20 select-none font-serif text-[13rem] font-black leading-none text-white/[.035]" aria-hidden="true">SU</div>
+        <div class="relative flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.18em] text-gold-300">{% translate "Academic analytics center" %}</p>
+                <h1 class="mt-3 text-3xl font-black sm:text-4xl">{% translate "Procurement reports" %}</h1>
+                <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
+                    {% if report_role == "staff" %}
+                        {% translate "A platform-wide summary of users, requests, purchase orders, and pending financial reviews." %}
+                    {% elif report_role == "supplier" %}
+                        {% translate "A focused summary of your submitted quotes, awarded work, revenue, and supplier rating." %}
+                    {% else %}
+                        {% translate "A concise summary of your procurement requests, committed spend, and completed orders." %}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="{% url 'reports_export_csv' %}" class="inline-flex min-h-11 items-center rounded-xl bg-gold-500 px-4 text-sm font-black text-university-900 transition hover:bg-gold-300">{% translate "Export CSV" %}</a>
+                <div class="w-fit rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs">
+                    <span class="block text-slate-300">{% translate "Report generated" %}</span>
+                    <time class="mt-1 block font-black text-gold-300">{% now "SHORT_DATETIME_FORMAT" %}</time>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% if report_role == "staff" %}
+        <div class="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <article class="stat-card"><span>{% translate "Users" %}</span><strong>{{ metrics.users }}</strong></article>
+            <article class="stat-card"><span>{% translate "Procurement requests" %}</span><strong>{{ metrics.requests }}</strong></article>
+            <article class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ metrics.orders }}</strong></article>
+            <article class="stat-card">
+                <span>{% translate "Procurement volume" %}</span>
+                <strong class="text-2xl">{{ metrics.volume|floatformat:2 }} <small class="text-xs text-gold-600 dark:text-gold-300">USD</small></strong>
+            </article>
+            <article class="stat-card"><span>{% translate "Payments awaiting review" %}</span><strong>{{ metrics.pending_payments }}</strong></article>
+        </div>
+    {% elif report_role == "supplier" %}
+        <div class="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <article class="stat-card"><span>{% translate "Submitted quotes" %}</span><strong>{{ metrics.quotes }}</strong></article>
+            <article class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ metrics.orders }}</strong></article>
+            <article class="stat-card">
+                <span>{% translate "Contracted revenue" %}</span>
+                <strong class="text-2xl">{{ metrics.revenue|floatformat:2 }} <small class="text-xs text-gold-600 dark:text-gold-300">USD</small></strong>
+            </article>
+            <article class="stat-card"><span>{% translate "Quote win rate" %}</span><strong>{{ metrics.win_rate|floatformat:1 }}<small class="text-base">%</small></strong></article>
+            <article class="stat-card">
+                <span>{% translate "Average rating" %}</span>
+                {% if metrics.rating %}
+                    <strong>{{ metrics.rating|floatformat:1 }}<small class="text-base"> / 5</small></strong>
+                {% else %}
+                    <strong class="text-lg">{% translate "No reviews" %}</strong>
+                {% endif %}
+            </article>
+        </div>
+    {% else %}
+        <div class="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <article class="stat-card"><span>{% translate "Procurement requests" %}</span><strong>{{ metrics.requests }}</strong></article>
+            <article class="stat-card"><span>{% translate "Purchase orders" %}</span><strong>{{ metrics.orders }}</strong></article>
+            <article class="stat-card">
+                <span>{% translate "Committed spend" %}</span>
+                <strong class="text-2xl">{{ metrics.spend|floatformat:2 }} <small class="text-xs text-gold-600 dark:text-gold-300">USD</small></strong>
+            </article>
+            <article class="stat-card"><span>{% translate "Completed orders" %}</span><strong>{{ metrics.completed }}</strong></article>
+            <article class="stat-card"><span>{% translate "Open requests" %}</span><strong>{{ metrics.open }}</strong></article>
+        </div>
+    {% endif %}
+
+    <div class="mt-7 grid gap-7 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <article class="academic-card overflow-hidden">
+            <div class="flex flex-col gap-3 border-b border-university-100 px-6 py-5 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h2 class="text-xl font-black text-university-800 dark:text-white">{% translate "Order status distribution" %}</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "Current purchase orders grouped by workflow stage" %}</p>
+                </div>
+                <a href="{% url 'order_list' %}" class="text-sm font-black text-university-700 transition hover:text-gold-600 dark:text-gold-300">{% translate "View purchase orders" %}</a>
+            </div>
+
+            {% if metrics.orders %}
+                <div class="grid gap-3 p-6 sm:grid-cols-2 sm:p-8 xl:grid-cols-3">
+                    {% for item in status_distribution %}
+                        <div class="relative overflow-hidden rounded-2xl border border-university-100 bg-university-50 p-5 dark:border-white/10 dark:bg-white/[.035]">
+                            <span class="absolute inset-y-0 start-0 w-1 {% if item.value == 'completed' %}bg-emerald-500{% elif item.value == 'cancelled' %}bg-rose-500{% else %}bg-gold-500{% endif %}" aria-hidden="true"></span>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-300">{{ item.label }}</span>
+                            <strong class="mt-2 block text-2xl font-black text-university-800 dark:text-white">{{ item.count }}</strong>
+                            <span class="mt-1 block text-[11px] text-slate-400">
+                                {% blocktranslate count counter=item.count %}{{ counter }} order{% plural %}{{ counter }} orders{% endblocktranslate %}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="px-6 py-16 text-center">
+                    <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-university-50 text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">
+                        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-3-3v6m7 12H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2Z"/></svg>
+                    </span>
+                    <h3 class="mt-5 text-lg font-black text-university-800 dark:text-white">{% translate "No order data available" %}</h3>
+                    <p class="mx-auto mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "The status report will populate after the first quote is awarded and a purchase order is created." %}</p>
+                    <a href="{% url 'rfq_list' %}" class="secondary-button mt-6">{% translate "Browse procurement requests" %}</a>
+                </div>
+            {% endif %}
+        </article>
+
+        <aside class="space-y-5">
+            <article class="academic-card p-6">
+                <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-xl bg-gold-50 text-gold-700 dark:bg-gold-500/10 dark:text-gold-200" aria-hidden="true">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg>
+                    </span>
+                    <h2 class="font-black text-university-800 dark:text-white">{% translate "How to read this report" %}</h2>
+                </div>
+                <p class="mt-4 text-sm leading-7 text-slate-500 dark:text-slate-300">
+                    {% translate "Figures reflect the records currently visible to your account. Monetary totals represent awarded order values, not necessarily collected or settled payments." %}
+                </p>
+            </article>
+
+            <article class="rounded-3xl border border-gold-200 bg-gold-50 p-6 dark:border-gold-500/20 dark:bg-gold-500/10">
+                <p class="text-xs font-black uppercase tracking-[.14em] text-gold-700 dark:text-gold-200">{% translate "Academic transparency" %}</p>
+                <h2 class="mt-2 font-black text-university-800 dark:text-white">{% translate "Evidence-based procurement" %}</h2>
+                <p class="mt-3 text-sm leading-7 text-gold-700 dark:text-gold-100">{% translate "Each order progresses through controlled states, creating a clear record for operational review and project evaluation." %}</p>
+            </article>
+        </aside>
+    </div>
+</section>
+{% endblock %}

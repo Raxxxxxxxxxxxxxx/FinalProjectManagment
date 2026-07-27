@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Review payment" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+        <a href="{% url 'order_list' %}" class="transition hover:text-gold-600">{% translate "Purchase orders" %}</a>
+        <span aria-hidden="true">/</span>
+        <a href="{% url 'order_detail' order.pk %}" class="transition hover:text-gold-600">{{ order.order_number }}</a>
+        <span aria-hidden="true">/</span>
+        <span>{% translate "Payment review" %}</span>
+    </nav>
+
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700"></div>
+        <div class="absolute -end-8 -top-16 select-none font-serif text-[9rem] font-black leading-none text-university-800/[.035] dark:text-white/[.025]" aria-hidden="true">SU</div>
+        <div class="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Administration workspace" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% translate "Review payment submission" %}</h1>
+                <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-300">
+                    {% translate "Compare the submitted reference with the verified financial record before recording a decision." %}
+                </p>
+            </div>
+            <span class="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black
+                {% if payment.status == 'confirmed' %}bg-emerald-50 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300
+                {% elif payment.status == 'rejected' %}bg-rose-50 text-rose-700 dark:bg-rose-400/10 dark:text-rose-300
+                {% elif payment.status == 'submitted' %}bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-200
+                {% else %}bg-university-50 text-university-700 dark:bg-white/5 dark:text-slate-200{% endif %}">
+                <span class="h-2 w-2 rounded-full bg-current" aria-hidden="true"></span>
+                {{ payment.get_status_display }}
+            </span>
+        </div>
+    </header>
+
+    <div class="mt-7 grid gap-7 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <article class="academic-card overflow-hidden">
+            <div class="border-b border-university-100 px-6 py-5 dark:border-white/10 sm:px-8">
+                <h2 class="text-xl font-black text-university-800 dark:text-white">{% translate "Submitted payment record" %}</h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "Read-only information supplied by the project owner" %}</p>
+            </div>
+
+            <dl class="grid gap-px bg-university-100 dark:bg-white/10 sm:grid-cols-2">
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Order number" %}</dt>
+                    <dd class="mt-2 font-black text-university-800 dark:text-white">{{ order.order_number }}</dd>
+                </div>
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Payment amount" %}</dt>
+                    <dd class="mt-2 text-xl font-black text-gold-700 dark:text-gold-300">{{ payment.amount|floatformat:2 }} <small class="text-xs">{{ order.currency }}</small></dd>
+                </div>
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Payment method" %}</dt>
+                    <dd class="mt-2 font-black text-university-800 dark:text-white">{{ payment.get_method_display }}</dd>
+                </div>
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Submitted at" %}</dt>
+                    <dd class="mt-2 font-black text-university-800 dark:text-white">{{ payment.submitted_at|date:"SHORT_DATETIME_FORMAT"|default:"—" }}</dd>
+                </div>
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Project owner" %}</dt>
+                    <dd class="mt-2 font-black text-university-800 dark:text-white">{{ order.owner.company.trade_name|default:order.owner.username }}</dd>
+                </div>
+                <div class="bg-white p-6 dark:bg-university-700">
+                    <dt class="text-xs font-bold text-slate-400">{% translate "Supplier" %}</dt>
+                    <dd class="mt-2 font-black text-university-800 dark:text-white">{{ order.supplier.company.trade_name|default:order.supplier.username }}</dd>
+                </div>
+            </dl>
+
+            <div class="space-y-5 px-6 py-6 sm:px-8">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400">{% translate "Transfer reference" %}</h3>
+                    <p class="mt-2 break-all rounded-xl bg-university-50 px-4 py-3 font-mono text-sm font-bold text-university-800 dark:bg-white/5 dark:text-white">{{ payment.reference|default:_("Not provided") }}</p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400">{% translate "Owner note" %}</h3>
+                    <p class="mt-2 whitespace-pre-line rounded-xl bg-university-50 px-4 py-3 text-sm leading-7 text-slate-600 dark:bg-white/5 dark:text-slate-200">{{ payment.note|default:_("No note was provided.") }}</p>
+                </div>
+                <div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-300">
+                    <span class="rounded-full border border-university-100 px-3 py-1.5 dark:border-white/10">
+                        {% blocktranslate with count=payment.submission_count %}Submission number: {{ count }}{% endblocktranslate %}
+                    </span>
+                    <span class="rounded-full border border-university-100 px-3 py-1.5 dark:border-white/10">
+                        {% blocktranslate with status=order.get_status_display %}Order status: {{ status }}{% endblocktranslate %}
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <aside>
+            {% if payment.status == "submitted" %}
+                <form method="post" class="academic-card p-6">
+                    {% csrf_token %}
+                    <div class="flex items-center gap-3">
+                        <span class="h-8 w-1 rounded-full bg-gold-500" aria-hidden="true"></span>
+                        <div>
+                            <h2 class="text-lg font-black text-university-800 dark:text-white">{% translate "Record a decision" %}</h2>
+                            <p class="mt-1 text-xs text-slate-500 dark:text-slate-300">{% translate "This action is added to the procurement record." %}</p>
+                        </div>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                        <div class="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-200">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    <div class="mt-6 space-y-5">
+                        {% for field in form %}
+                            <div>
+                                <label for="{{ field.id_for_label }}" class="text-sm font-black text-university-800 dark:text-white">
+                                    {{ field.label }}
+                                    {% if field.field.required %}<span class="text-rose-600" aria-hidden="true">*</span>{% endif %}
+                                </label>
+                                {{ field }}
+                                {% if field.help_text %}<p class="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ field.help_text }}</p>{% endif %}
+                                {% if field.errors %}<div class="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{{ field.errors }}</div>{% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-6 rounded-xl border border-gold-200 bg-gold-50 p-4 text-xs leading-6 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                        {% translate "A rejection requires a clear reason so the project owner can correct the submission." %}
+                    </div>
+
+                    <div class="mt-6 flex flex-col gap-3">
+                        <button type="submit" class="primary-button w-full">{% translate "Save payment decision" %}</button>
+                        <a href="{% url 'order_detail' order.pk %}" class="secondary-button w-full">{% translate "Return to order" %}</a>
+                    </div>
+                </form>
+            {% else %}
+                <div class="academic-card p-6 text-center">
+                    <span class="mx-auto grid h-12 w-12 place-items-center rounded-full
+                        {% if payment.status == 'confirmed' %}bg-emerald-600{% else %}bg-university-700{% endif %} text-xl font-black text-white" aria-hidden="true">✓</span>
+                    <h2 class="mt-4 text-lg font-black text-university-800 dark:text-white">{% translate "No pending decision" %}</h2>
+                    <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">
+                        {% translate "This payment submission has already been processed and cannot be reviewed again." %}
+                    </p>
+                    {% if payment.admin_note %}
+                        <div class="mt-5 rounded-xl bg-university-50 p-4 text-start text-sm leading-7 text-slate-600 dark:bg-white/5 dark:text-slate-200">
+                            <strong class="block text-xs text-slate-400">{% translate "Administration note" %}</strong>
+                            <span class="mt-1 block whitespace-pre-line">{{ payment.admin_note }}</span>
+                        </div>
+                    {% endif %}
+                    <a href="{% url 'order_detail' order.pk %}" class="secondary-button mt-6 w-full">{% translate "Return to order" %}</a>
+                </div>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+{% endblock %}

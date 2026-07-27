@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}{% translate "New request for quotation" %}{% endblock %}
+{% block content %}
+<section class="relative isolate overflow-hidden px-4 py-12 sm:px-6 lg:py-16">
+    <div class="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-35" aria-hidden="true"></div>
+    <div class="mx-auto max-w-4xl">
+    <div class="academic-card mb-7 flex flex-col justify-between gap-5 overflow-hidden p-6 sm:flex-row sm:items-center sm:p-8">
+        <div>
+            <span class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Procurement workspace" %}</span>
+            <h1 class="mt-2 text-3xl font-black text-ink dark:text-white">{% translate "Create a request for quotation" %}</h1>
+            <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Clear requirements help qualified suppliers submit stronger, more accurate quotes." %}</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-3 rounded-2xl border border-university-100 bg-university-50 px-4 py-3 dark:border-white/10 dark:bg-white/[.035]">
+            <span class="grid h-9 w-9 place-items-center rounded-xl bg-university-600 text-sm font-black text-white dark:bg-gold-500 dark:text-university-900">01</span>
+            <div>
+                <span class="block text-[10px] font-black uppercase tracking-wider text-gold-600 dark:text-gold-300">{% translate "Current step" %}</span>
+                <strong class="text-sm text-ink dark:text-white">{% translate "Request information" %}</strong>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" id="rfqForm" class="space-y-6">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-700 dark:border-red-400/20 dark:bg-red-950/30 dark:text-red-200">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="academic-card p-6 sm:p-8">
+            <div class="flex items-center gap-3">
+                <span class="h-7 w-1 rounded-full bg-gold-500" aria-hidden="true"></span>
+                <div>
+                    <h2 class="text-xl font-black text-ink dark:text-white">{% translate "Request information" %}</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "Define the scope, delivery location, deadline, and expected budget." %}</p>
+                </div>
+            </div>
+            <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                {% for field in form %}
+                    <div class="{% if field.name == 'description' %}sm:col-span-2{% endif %}">
+                        <label for="{{ field.id_for_label }}" class="text-sm font-black text-ink dark:text-white">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<p class="mt-1.5 text-xs leading-5 text-slate-400">{{ field.help_text|safe }}</p>{% endif %}
+                        {% for error in field.errors %}<p class="mt-1.5 text-xs font-bold text-red-600 dark:text-red-300">{{ error }}</p>{% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="academic-card p-6 sm:p-8">
+            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                <div class="flex items-center gap-3">
+                    <span class="h-7 w-1 rounded-full bg-gold-500" aria-hidden="true"></span>
+                    <div>
+                        <h2 class="text-xl font-black text-ink dark:text-white">{% translate "Required items" %}</h2>
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-300">{% translate "Add at least one item with a clear quantity and specification." %}</p>
+                    </div>
+                </div>
+                <button type="button" id="addItem" class="secondary-button shrink-0 border-gold-200 text-university-700 hover:border-gold-400 dark:text-gold-300">
+                    <span aria-hidden="true">+</span>
+                    <span class="ms-2">{% translate "Add item" %}</span>
+                </button>
+            </div>
+            {{ formset.management_form }}
+            {% if formset.non_form_errors %}
+                <div class="mt-5 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-700 dark:border-red-400/20 dark:bg-red-950/30 dark:text-red-200">{{ formset.non_form_errors }}</div>
+            {% endif %}
+            <div id="itemsContainer" class="mt-6 space-y-4">
+                {% for item_form in formset %}
+                    <div class="item-row grid gap-4 rounded-2xl border border-university-100 bg-university-50 p-4 dark:border-white/10 dark:bg-white/[.035] sm:grid-cols-2">
+                        {% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}
+                        {% for field in item_form.visible_fields %}
+                            <div class="{% if field.name == 'specifications' %}sm:col-span-2 {% endif %}{% if field.name == 'DELETE' %}hidden{% endif %}">
+                                <label for="{{ field.id_for_label }}" class="text-sm font-black text-ink dark:text-white">{{ field.label }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}<p class="mt-1.5 text-xs font-bold text-red-600 dark:text-red-300">{{ error }}</p>{% endfor %}
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="remove-item justify-self-start text-xs font-black text-red-600 hover:text-red-700 dark:text-red-300">{% translate "Remove item" %}</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <template id="emptyItemTemplate">
+                <div class="item-row grid gap-4 rounded-2xl border border-university-100 bg-university-50 p-4 dark:border-white/10 dark:bg-white/[.035] sm:grid-cols-2">
+                    {% with item_form=formset.empty_form %}
+                        {% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}
+                        {% for field in item_form.visible_fields %}
+                            <div class="{% if field.name == 'specifications' %}sm:col-span-2 {% endif %}{% if field.name == 'DELETE' %}hidden{% endif %}">
+                                <label for="{{ field.id_for_label }}" class="text-sm font-black text-ink dark:text-white">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+                    <button type="button" class="remove-item justify-self-start text-xs font-black text-red-600 hover:text-red-700 dark:text-red-300">{% translate "Remove item" %}</button>
+                </div>
+            </template>
+        </div>
+        <div class="flex flex-wrap justify-end gap-3">
+            <a href="{% url 'dashboard' %}" class="secondary-button px-6">{% translate "Cancel" %}</a>
+            <button type="submit" class="primary-button px-8">{% translate "Publish request" %}</button>
+        </div>
+    </form>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/rfq-form.js' %}"></script>{% endblock %}

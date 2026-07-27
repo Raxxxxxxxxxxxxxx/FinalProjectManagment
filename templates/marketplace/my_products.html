@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n marketplace_extras %}
+
+{% block title %}{% translate "My catalog" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Supplier workspace" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% translate "My products and services" %}</h1>
+                <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Maintain a clear reference catalog that presents your supplier capabilities." %}</p>
+            </div>
+            <a href="{% url 'product_create' %}" class="primary-button shrink-0"><span class="me-2 text-lg" aria-hidden="true">+</span>{% translate "Add catalog item" %}</a>
+        </div>
+    </header>
+
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <p class="text-sm font-bold text-slate-500 dark:text-slate-300">{% blocktranslate count counter=page_obj.paginator.count %}1 item in your catalog{% plural %}{{ counter }} items in your catalog{% endblocktranslate %}</p>
+        <a href="{% url 'product_list' %}" class="text-sm font-black text-university-700 hover:text-gold-600 dark:text-gold-300">{% translate "View public catalog" %}</a>
+    </div>
+
+    <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {% for product in products %}
+            <article class="academic-card flex h-full flex-col overflow-hidden">
+                <div class="flex items-start justify-between gap-3 border-b border-university-100 bg-university-50 p-5 dark:border-white/10 dark:bg-white/[.035]">
+                    <div><span class="text-xs font-black text-gold-600 dark:text-gold-300">{{ product.category.display_name }}</span>{% if product.sku %}<span class="ms-2 font-mono text-[10px] text-slate-400" dir="ltr">{{ product.sku }}</span>{% endif %}</div>
+                    <span class="rounded-full px-3 py-1 text-[11px] font-black {% if product.is_active %}bg-emerald-50 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200{% else %}bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300{% endif %}">{% if product.is_active %}{% translate "Active" %}{% else %}{% translate "Hidden" %}{% endif %}</span>
+                </div>
+                <div class="flex flex-1 flex-col p-5">
+                    <h2 class="text-lg font-black text-university-800 dark:text-white">{{ product.name }}</h2>
+                    <p class="mt-2 line-clamp-2 min-h-12 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ product.description|default:_("No description was provided.") }}</p>
+                    <dl class="mt-5 grid grid-cols-2 gap-3 rounded-xl bg-university-50 p-4 text-xs dark:bg-white/5">
+                        <div><dt class="text-slate-400">{% translate "Reference price" %}</dt><dd class="mt-1 font-black text-gold-700 dark:text-gold-300">{% if product.price %}{{ product.price|floatformat:2 }} USD{% else %}—{% endif %}</dd></div>
+                        <div><dt class="text-slate-400">{% translate "Minimum order" %}</dt><dd class="mt-1 font-black text-university-800 dark:text-white">{{ product.minimum_order_quantity }} {{ product.unit|display_unit }}</dd></div>
+                    </dl>
+                    <div class="mt-5 flex flex-wrap gap-2 border-t border-university-100 pt-4 dark:border-white/10">
+                        <a href="{% url 'product_edit' product.pk %}" class="secondary-button flex-1">{% translate "Edit" %}</a>
+                        <form method="post" action="{% url 'product_toggle' product.pk %}" class="flex-1">
+                            {% csrf_token %}
+                            <button type="submit" class="secondary-button w-full">{% if product.is_active %}{% translate "Hide" %}{% else %}{% translate "Publish" %}{% endif %}</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="academic-card py-16 text-center md:col-span-2 xl:col-span-3">
+                <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-university-50 text-2xl font-black text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">+</span>
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "Your catalog is empty" %}</h2>
+                <p class="mx-auto mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Add your first product or service to present your capabilities to project owners." %}</p>
+                <a href="{% url 'product_create' %}" class="primary-button mt-6">{% translate "Add first item" %}</a>
+            </div>
+        {% endfor %}
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

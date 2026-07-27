@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if editing %}{% translate "Edit catalog item" %}{% else %}{% translate "Add catalog item" %}{% endif %}{% endblock %}
+
+{% block content %}
+<section class="relative isolate overflow-hidden px-4 py-12 sm:px-6 lg:py-16">
+    <div class="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-35" aria-hidden="true"></div>
+    <div class="mx-auto max-w-3xl">
+        <nav class="mb-6 flex items-center gap-2 text-xs font-bold text-slate-400" aria-label="{% translate 'Breadcrumb' %}">
+            <a href="{% url 'my_products' %}" class="transition hover:text-gold-600">{% translate "My catalog" %}</a>
+            <span aria-hidden="true">/</span>
+            <span>{% if editing %}{% translate "Edit" %}{% else %}{% translate "Add" %}{% endif %}</span>
+        </nav>
+
+        <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+            <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+            <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Supplier workspace" %}</p>
+            <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% if editing %}{% translate "Edit product or service" %}{% else %}{% translate "Add a product or service" %}{% endif %}</h1>
+            <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Provide clear reference information so project owners can understand your capabilities before requesting a formal quote." %}</p>
+        </header>
+
+        <form method="post" class="academic-card mt-6 p-6 sm:p-8">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="mb-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-bold text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-200" role="alert">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="grid gap-5 sm:grid-cols-2">
+                {% for field in form %}
+                    {% if field.name == "is_active" %}
+                        <div class="checkbox-field rounded-2xl border border-university-100 bg-university-50 p-4 dark:border-white/10 dark:bg-white/[.035] sm:col-span-2">
+                            <label for="{{ field.id_for_label }}" class="flex cursor-pointer items-start gap-3">
+                                {{ field }}
+                                <span><strong class="block text-sm text-university-800 dark:text-white">{{ field.label }}</strong><small class="mt-1 block leading-6 text-slate-500 dark:text-slate-300">{% translate "Active items appear in the public catalog after supplier verification." %}</small></span>
+                            </label>
+                            {% for error in field.errors %}<p class="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300" role="alert">{{ error }}</p>{% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="{% if field.name == 'description' %}sm:col-span-2{% endif %}">
+                            <label for="{{ field.id_for_label }}" class="text-sm font-black text-university-800 dark:text-white">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-rose-600" aria-hidden="true">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}<p class="mt-2 text-xs leading-6 text-slate-500 dark:text-slate-300">{{ field.help_text }}</p>{% endif %}
+                            {% for error in field.errors %}<p class="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300" role="alert">{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="mt-7 rounded-2xl border border-gold-200 bg-gold-50 p-5 text-sm leading-7 text-gold-700 dark:border-gold-500/20 dark:bg-gold-500/10 dark:text-gold-100">
+                <strong class="block">{% translate "Reference pricing" %}</strong>
+                <span class="mt-1 block">{% translate "Catalog prices are indicative. The binding amount is the quote submitted for a specific procurement request." %}</span>
+            </div>
+
+            <div class="mt-7 flex flex-col-reverse gap-3 border-t border-university-100 pt-6 dark:border-white/10 sm:flex-row sm:justify-end">
+                <a href="{% url 'my_products' %}" class="secondary-button">{% translate "Cancel" %}</a>
+                <button type="submit" class="primary-button px-8">{% if editing %}{% translate "Save changes" %}{% else %}{% translate "Add to catalog" %}{% endif %}</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

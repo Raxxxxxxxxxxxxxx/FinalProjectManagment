@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Temporary system error" %}{% endblock %}
+{% block content %}
+<section class="mx-auto grid min-h-[60vh] max-w-4xl place-items-center px-4 py-16 text-center">
+    <div>
+        <span class="font-serif text-8xl font-black text-gold-500" aria-hidden="true">500</span>
+        <h1 class="mt-4 text-3xl font-black text-university-800 dark:text-white">{% translate "An unexpected error occurred" %}</h1>
+        <p class="mx-auto mt-3 max-w-xl leading-8 text-slate-500 dark:text-slate-300">{% translate "Please try again shortly. Your previously saved data remains unchanged." %}</p>
+        <a href="{% url 'home' %}" class="primary-button mt-7">{% translate "Return to home" %}</a>
+    </div>
+</section>
+{% endblock %}

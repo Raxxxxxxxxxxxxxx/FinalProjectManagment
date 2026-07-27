@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Home" %}{% endblock %}
+{% block content %}
+<section class="relative overflow-hidden bg-white dark:bg-university-800">
+    <div class="hero-grid absolute inset-0 opacity-70"></div>
+    <div class="absolute inset-x-0 top-0 mx-auto h-px max-w-5xl bg-gradient-to-r from-transparent via-gold-400/60 to-transparent"></div>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-28">
+        <div>
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-200 bg-gold-50 px-4 py-2 text-sm font-black text-gold-700 dark:border-gold-500/30 dark:bg-gold-500/10 dark:text-gold-200">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 3 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7L12 3Z"/></svg>
+                {% translate "An academic platform for intelligent procurement" %}
+            </div>
+            <h1 class="text-4xl font-black leading-tight text-university-800 dark:text-white sm:text-5xl lg:text-6xl">
+                {% translate "Your project needs reach" %}
+                <span class="relative text-gold-600 dark:text-gold-300">
+                    {% translate "the right supplier" %}
+                    <span class="absolute inset-x-0 -bottom-2 h-1 rounded-full bg-gold-400/30"></span>
+                </span>
+            </h1>
+            <p class="mt-7 max-w-xl text-lg leading-9 text-slate-600 dark:text-slate-300">
+                {% translate "Publish your request once, receive competitive quotes, and compare prices and delivery times transparently in one trusted environment." %}
+            </p>
+            <div class="mt-9 flex flex-wrap gap-3">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="primary-button px-7 py-4 text-base">{% translate "Open my dashboard" %}</a>
+                    {% if user.is_owner %}
+                        <a href="{% url 'rfq_create' %}" class="secondary-button px-7 py-4 text-base">{% translate "Request a quote" %}</a>
+                    {% elif user.is_supplier %}
+                        <a href="{% url 'my_quotes' %}" class="secondary-button px-7 py-4 text-base">{% translate "Manage my quotes" %}</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'register' %}?role=owner" class="primary-button px-7 py-4 text-base">{% translate "I am a project owner" %}</a>
+                    <a href="{% url 'register' %}?role=supplier" class="secondary-button px-7 py-4 text-base">{% translate "Join as a supplier" %}</a>
+                {% endif %}
+            </div>
+            <div class="mt-11 grid max-w-lg grid-cols-3 divide-x divide-university-100 border-y border-university-100 py-5 dark:divide-white/10 dark:border-white/10 rtl:divide-x-reverse">
+                <div class="px-3 first:ps-0"><strong class="block text-2xl text-university-800 dark:text-white">{{ open_count }}+</strong><span class="text-xs text-slate-500 dark:text-slate-300">{% translate "Open requests" %}</span></div>
+                <div class="px-3"><strong class="block text-2xl text-university-800 dark:text-white">{{ supplier_count }}+</strong><span class="text-xs text-slate-500 dark:text-slate-300">{% translate "Suppliers" %}</span></div>
+                <div class="px-3"><strong class="block text-2xl text-university-800 dark:text-white">{{ category_count }}+</strong><span class="text-xs text-slate-500 dark:text-slate-300">{% translate "Business sectors" %}</span></div>
+            </div>
+        </div>
+
+        <div class="relative">
+            <div class="absolute -end-10 -top-10 h-40 w-40 rounded-full bg-gold-200/40 blur-3xl dark:bg-gold-500/10"></div>
+            <div class="absolute -bottom-10 -start-10 h-52 w-52 rounded-full bg-university-200/60 blur-3xl dark:bg-university-400/10"></div>
+            <div class="academic-card relative p-5 sm:p-7">
+                <div class="absolute inset-x-7 top-0 h-1 rounded-b-full bg-gradient-to-r from-gold-300 via-gold-500 to-gold-300"></div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-slate-500 dark:text-slate-300">{% translate "Procurement overview" %}</p>
+                        <h2 class="mt-1 text-xl font-black text-university-800 dark:text-white">{% translate "Your project dashboard" %}</h2>
+                    </div>
+                    <span class="rounded-xl bg-university-50 p-3 text-university-700 dark:bg-white/5 dark:text-gold-300">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h4v8H3v-8Zm7-10h4v18h-4V3Zm7 6h4v12h-4V9Z"/></svg>
+                    </span>
+                </div>
+                <div class="mt-7 grid grid-cols-3 gap-3">
+                    <div class="rounded-2xl bg-university-50 p-4 dark:bg-white/5"><span class="text-xs text-slate-500 dark:text-slate-300">{% translate "Open requests" %}</span><strong class="mt-2 block text-2xl text-university-800 dark:text-white">{{ open_count }}</strong></div>
+                    <div class="rounded-2xl bg-university-50 p-4 dark:bg-white/5"><span class="text-xs text-slate-500 dark:text-slate-300">{% translate "Received quotes" %}</span><strong class="mt-2 block text-2xl text-university-800 dark:text-white">{{ total_quote_count }}</strong></div>
+                    <div class="rounded-2xl bg-gold-50 p-4 dark:bg-gold-500/10"><span class="text-xs text-gold-700 dark:text-gold-200">{% translate "Estimated savings" %}</span><strong class="mt-2 block text-2xl text-gold-700 dark:text-gold-200">{{ estimated_savings }}%</strong></div>
+                </div>
+                <div class="mt-6 space-y-3">
+                    <div class="rounded-2xl border border-university-100 p-4 dark:border-white/10">
+                        <div class="flex items-start justify-between gap-4">
+                            <div><span class="text-xs font-bold text-gold-600 dark:text-gold-300">{{ preview_request.category.display_name|default:_("Procurement") }}</span><h3 class="mt-1 font-bold text-university-800 dark:text-white">{{ preview_request.title|default:_("No open requests yet") }}</h3></div>
+                            <span class="rounded-lg bg-gold-50 px-2.5 py-1 text-xs font-bold text-gold-700 dark:bg-gold-500/10 dark:text-gold-200">{% blocktranslate count counter=preview_request.quote_count|default:0 %}1 quote{% plural %}{{ counter }} quotes{% endblocktranslate %}</span>
+                        </div>
+                        <div class="mt-4 h-2 overflow-hidden rounded-full bg-university-50 dark:bg-white/10"><div class="h-full w-3/4 rounded-full bg-gradient-to-r from-university-600 to-gold-500"></div></div>
+                    </div>
+                    {% if preview_request %}
+                        <div class="rounded-2xl border border-university-100 p-4 dark:border-white/10">
+                            <div class="flex items-center justify-between gap-4"><span class="font-bold text-university-800 dark:text-white">{{ preview_request.delivery_city }}</span><span class="text-xs text-slate-500 dark:text-slate-300">{% blocktranslate with deadline=preview_request.deadline|date:"SHORT_DATE_FORMAT" %}Closes {{ deadline }}{% endblocktranslate %}</span></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mt-5 flex items-center gap-2 text-[11px] font-bold text-slate-400 dark:text-slate-300">
+                    <svg class="h-4 w-4 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75 11.25 15 15 9.75M12 3l7 3v5c0 4.5-2.8 7.8-7 10-4.2-2.2-7-5.5-7-10V6l7-3Z"/></svg>
+                    {% translate "Designed according to transparent academic workflows" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="text-center">
+        <span class="text-sm font-black text-gold-600 dark:text-gold-300">{% translate "How does the platform work?" %}</span>
+        <h2 class="mt-3 text-3xl font-black text-university-800 dark:text-white">{% translate "From need to supply in four structured steps" %}</h2>
+        <div class="mx-auto mt-5 h-1 w-20 rounded-full bg-gold-500"></div>
+    </div>
+    <div class="mt-12 grid gap-5 md:grid-cols-4">
+        <div class="step-card"><span>01</span><h3>{% translate "Publish your need" %}</h3><p>{% translate "Add items, quantities, specifications, and the required delivery date." %}</p></div>
+        <div class="step-card"><span>02</span><h3>{% translate "Receive quotes" %}</h3><p>{% translate "Qualified supplier quotes arrive directly in your account." %}</p></div>
+        <div class="step-card"><span>03</span><h3>{% translate "Compare and select" %}</h3><p>{% translate "Compare price, duration, and rating, then select the best quote." %}</p></div>
+        <div class="step-card"><span>04</span><h3>{% translate "Track and receive" %}</h3><p>{% translate "Track preparation and delivery, then evaluate your experience." %}</p></div>
+    </div>
+</section>
+
+<section class="relative overflow-hidden bg-university-800 py-20 text-white dark:bg-university-900">
+    <div class="absolute inset-0 opacity-10 academic-lines"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div><span class="text-sm font-black text-gold-300">{% translate "Opportunities available now" %}</span><h2 class="mt-3 text-3xl font-black">{% translate "Latest procurement requests" %}</h2></div>
+            <a href="{% url 'rfq_list' %}" class="inline-flex items-center gap-2 font-bold text-gold-300">
+                {% translate "View all requests" %}
+                <svg class="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+            </a>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+            {% for rfq in featured_requests %}
+                <a href="{% url 'rfq_detail' rfq.pk %}" class="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-gold-400/40 hover:bg-white/10">
+                    <div class="flex justify-between gap-3"><span class="rounded-lg bg-gold-300/15 px-3 py-1 text-xs font-bold text-gold-200">{{ rfq.category.display_name }}</span><span class="text-xs text-slate-300">{{ rfq.deadline|date:"d M" }}</span></div>
+                    <h3 class="mt-5 text-lg font-black">{{ rfq.title }}</h3>
+                    <p class="mt-3 line-clamp-2 text-sm leading-7 text-slate-300">{{ rfq.description }}</p>
+                    <div class="mt-6 flex justify-between border-t border-white/10 pt-4 text-xs text-slate-300"><span>{{ rfq.delivery_city }}</span><span>{% blocktranslate count counter=rfq.quote_count %}1 quote{% plural %}{{ counter }} quotes{% endblocktranslate %}</span></div>
+                </a>
+            {% empty %}
+                <div class="col-span-3 rounded-2xl border border-dashed border-white/20 p-10 text-center text-slate-300">{% translate "Published procurement requests will appear here." %}</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="mx-auto max-w-5xl px-4 py-20 text-center sm:px-6">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-university-800 to-university-600 px-6 py-14 text-white shadow-academic">
+        <div class="absolute -start-10 -top-16 h-44 w-44 rounded-full border-[28px] border-gold-400/10"></div>
+        <div class="relative">
+            <span class="text-sm font-black text-gold-300">{% translate "A Sham University graduation project" %}</span>
+            <h2 class="mt-3 text-3xl font-black">{% translate "Ready to improve your procurement process?" %}</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-university-100">{% translate "Create your account for free and publish your first request for quotation in minutes." %}</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="mt-7 inline-flex rounded-xl bg-gold-500 px-7 py-3.5 font-black text-university-900 transition hover:bg-gold-300">{% translate "Open my dashboard" %}</a>
+            {% else %}
+                <a href="{% url 'register' %}" class="mt-7 inline-flex rounded-xl bg-gold-500 px-7 py-3.5 font-black text-university-900 transition hover:bg-gold-300">{% translate "Create a free account" %}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

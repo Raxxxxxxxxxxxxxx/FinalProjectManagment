@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Notifications" %}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="academic-card relative overflow-hidden p-6 sm:p-8">
+        <div class="absolute inset-y-0 end-0 w-1 bg-gradient-to-b from-gold-400 via-gold-500 to-university-700" aria-hidden="true"></div>
+        <div class="absolute -end-10 -top-14 select-none font-serif text-[9rem] font-black leading-none text-university-800/[.035] dark:text-white/[.025]" aria-hidden="true">SU</div>
+        <div class="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p class="text-xs font-black uppercase tracking-[.16em] text-gold-600 dark:text-gold-300">{% translate "Activity center" %}</p>
+                <h1 class="mt-2 text-3xl font-black text-university-800 dark:text-white">{% translate "Notifications" %}</h1>
+                <p class="mt-2 text-sm leading-7 text-slate-500 dark:text-slate-300">
+                    {% translate "Follow quote, order, payment, and review updates from one academic workspace." %}
+                </p>
+            </div>
+            {% if unread_notification_count %}
+                <form method="post" action="{% url 'notifications_mark_all_read' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="secondary-button">
+                        {% translate "Mark all as read" %}
+                        <span class="ms-2 rounded-full bg-gold-500 px-2 py-0.5 text-[10px] text-university-900">{{ unread_notification_count }}</span>
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="academic-card mt-7 overflow-hidden">
+        {% if notifications %}
+            <div class="divide-y divide-university-100 dark:divide-white/10">
+                {% for notification in notifications %}
+                    <form method="post" action="{% url 'notification_open' notification.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="group relative grid w-full gap-4 px-5 py-5 text-start transition hover:bg-university-50 dark:hover:bg-white/[.035] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:px-7">
+                            {% if not notification.is_read %}
+                                <span class="absolute inset-y-4 start-0 w-1 rounded-e-full bg-gold-500" aria-hidden="true"></span>
+                            {% endif %}
+
+                            <span class="grid h-11 w-11 place-items-center rounded-xl
+                                {% if not notification.is_read %}bg-gold-50 text-gold-700 dark:bg-gold-500/10 dark:text-gold-200
+                                {% else %}bg-university-50 text-university-600 dark:bg-white/5 dark:text-slate-300{% endif %}" aria-hidden="true">
+                                {% if notification.kind == "quote_received" %}
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 8h10M7 12h6m-8 9 3-3h9a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v9a3 3 0 0 0 1 2.24V21Z"/></svg>
+                                {% elif notification.kind == "payment_submitted" or notification.kind == "payment_confirmed" or notification.kind == "payment_rejected" %}
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18v11H3V7Zm0 4h18M7 15h3"/></svg>
+                                {% elif notification.kind == "review_received" %}
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m12 3 2.75 5.57 6.15.9-4.45 4.33 1.05 6.12L12 17.03l-5.5 2.89 1.05-6.12L3.1 9.47l6.15-.9L12 3Z"/></svg>
+                                {% else %}
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17H9m9-5a6 6 0 1 0-12 0c0 3-1.5 4-1.5 4h15S18 15 18 12ZM10 20h4"/></svg>
+                                {% endif %}
+                            </span>
+
+                            <span class="min-w-0">
+                                <span class="flex flex-wrap items-center gap-2">
+                                    <strong class="text-sm font-black text-university-800 dark:text-white">{{ notification.get_kind_display }}</strong>
+                                    {% if not notification.is_read %}
+                                        <span class="rounded-full bg-gold-500 px-2 py-0.5 text-[10px] font-black text-university-900">{% translate "New" %}</span>
+                                    {% endif %}
+                                </span>
+                                <span class="mt-1 block text-sm leading-7 {% if notification.is_read %}text-slate-500 dark:text-slate-300{% else %}font-bold text-slate-700 dark:text-slate-100{% endif %}">
+                                    {{ notification.message }}
+                                </span>
+                                {% if notification.order %}
+                                    <span class="mt-1 block truncate text-xs font-bold text-gold-600 dark:text-gold-300">
+                                        {% blocktranslate with number=notification.order.order_number %}Order {{ number }}{% endblocktranslate %}
+                                    </span>
+                                {% elif notification.rfq %}
+                                    <span class="mt-1 block truncate text-xs font-bold text-gold-600 dark:text-gold-300">{{ notification.rfq.title }}</span>
+                                {% endif %}
+                            </span>
+
+                            <span class="flex items-center justify-between gap-4 sm:block sm:text-end">
+                                <time datetime="{{ notification.created_at|date:'c' }}" class="text-xs text-slate-400">{{ notification.created_at|date:"SHORT_DATETIME_FORMAT" }}</time>
+                                <span class="mt-2 hidden text-xs font-black text-university-700 transition group-hover:text-gold-600 dark:text-gold-300 sm:block">
+                                    {% translate "Open" %}
+                                    <span class="ms-1 inline-block rtl:rotate-180" aria-hidden="true">→</span>
+                                </span>
+                            </span>
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="px-6 py-20 text-center">
+                <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-university-50 text-university-600 dark:bg-white/5 dark:text-gold-300" aria-hidden="true">
+                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17H9m9-5a6 6 0 1 0-12 0c0 3-1.5 4-1.5 4h15S18 15 18 12ZM10 20h4"/></svg>
+                </span>
+                <h2 class="mt-5 text-xl font-black text-university-800 dark:text-white">{% translate "No notifications yet" %}</h2>
+                <p class="mx-auto mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-300">{% translate "Updates about your requests and orders will appear here as the procurement workflow progresses." %}</p>
+                <a href="{% url 'dashboard' %}" class="secondary-button mt-6">{% translate "Return to dashboard" %}</a>
+            </div>
+        {% endif %}
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}
