@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
-  <title id="title">Sham University logo placeholder</title>
-  <desc id="desc">Academic shield placeholder ready to be replaced by the official university logo</desc>
-  <path fill="#f5f8ff" d="M48 3 86 17v27c0 24-15 40-38 49C25 84 10 68 10 44V17L48 3Z"/>
-  <path fill="#183b65" d="M48 8 81 20v24c0 20-12 35-33 44-21-9-33-24-33-44V20L48 8Zm0 7L22 25v19c0 16 9 28 26 36 17-8 26-20 26-36V25L48 15Z"/>
-  <path fill="#b9955c" d="M28 37h40v5H28zM34 47h28v4H34zM39 55h18v4H39z"/>
-  <path fill="#183b65" d="m48 24 24 10H24l24-10ZM30 64h36v5H30z"/>
-  <circle cx="48" cy="15" r="3" fill="#b9955c"/>
-</svg>

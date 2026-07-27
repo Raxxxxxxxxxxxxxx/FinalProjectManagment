@@ -101,7 +101,7 @@ python manage.py makemigrations --check --dry-run
   بين RTL وLTR.
 - يمكن تبديل الوضع الفاتح والداكن من زر الثيم، ويحفظ المتصفح الاختيار محلياً.
 - لاستبدال الشعار المؤقت بالشعار الرسمي، استبدل الملف
-  `static/images/university-logo-placeholder.svg` مع الحفاظ على الاسم، أو عدّل
+  `static/images/logosham.png` مع الحفاظ على الاسم، أو عدّل
   مسار الصورة في `templates/base.html`.
 - بعد تعديل نصوص الترجمة شغّل:
 
